@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+      <item android:id="@+id/nav_call"
+        android:icon="@mipmap/icon_call"
+        android:title="call"/>
+      <item android:id="@+id/nav_friend"
+        android:icon="@mipmap/icon_friend"
+        android:title="friend"/>
+      <item android:id="@+id/nav_location"
+        android:icon="@mipmap/icon_location"
+        android:title="location"/>
+      <item android:id="@+id/nav_share"
+        android:icon="@mipmap/icon_share"
+        android:title="share"/>
+   </group>
+</menu>
