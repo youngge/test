@@ -21,7 +21,7 @@ import com.example.yang.test.R;
  * Created by Administrator on 2016/12/3.
  */
 
-public class CustomView extends View {
+public class ZhifuView extends View {
 
     private Context context;
     //最大值
@@ -52,22 +52,22 @@ public class CustomView extends View {
     private String[] texts = {"较差", "中等", "良好", "优秀", "极好"};
     private int[] indicatorColor = {0xffffffff, 0x00ffffff, 0x99ffffff, 0xffffffff};
 
-    public CustomView(Context context) {
+    public ZhifuView(Context context) {
         this(context, null);
     }
 
-    public CustomView(Context context, AttributeSet attrs) {
+    public ZhifuView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ZhifuView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomView);
-        maxNum = typedArray.getInt(R.styleable.CustomView_maxNum, 500);
-        startAngle = typedArray.getInt(R.styleable.CustomView_startAngle, 160);
-        sweepAngle = typedArray.getInt(R.styleable.CustomView_sweepAngle, 220);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ZhifuView);
+        maxNum = typedArray.getInt(R.styleable.ZhifuView_maxNum, 500);
+        startAngle = typedArray.getInt(R.styleable.ZhifuView_startAngle, 160);
+        sweepAngle = typedArray.getInt(R.styleable.ZhifuView_sweepAngle, 220);
         typedArray.recycle();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);

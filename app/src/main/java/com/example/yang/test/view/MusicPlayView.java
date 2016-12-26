@@ -8,7 +8,6 @@ import android.content.res.TypedArray;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
@@ -62,11 +61,11 @@ public class MusicPlayView extends View {
         super(context, attrs, defStyleAttr);
         this.context = context;
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomView);
-        maxNum = typedArray.getInt(R.styleable.CustomView_maxNum, 500);
-        startAngle = typedArray.getInt(R.styleable.CustomView_startAngle, 160);
-        sweepAngle = typedArray.getInt(R.styleable.CustomView_sweepAngle, 220);
-        radius = typedArray.getInt(R.styleable.CustomView_radius, 100);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ZhifuView);
+        maxNum = typedArray.getInt(R.styleable.ZhifuView_maxNum, 500);
+        startAngle = typedArray.getInt(R.styleable.ZhifuView_startAngle, 160);
+        sweepAngle = typedArray.getInt(R.styleable.ZhifuView_sweepAngle, 220);
+        radius = typedArray.getInt(R.styleable.ZhifuView_radius, 100);
         typedArray.recycle();
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);

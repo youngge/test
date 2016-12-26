@@ -44,9 +44,11 @@
         <activity
             android:name=".activity.NotificationActivity"
             android:label="通知" />
-        <activity android:name=".activity.GameActivity"
+        <activity
+            android:name=".activity.GameActivity"
             android:label="2048小游戏" />
-        <activity android:name=".activity.RussianSquareActivity"
+        <activity
+            android:name=".activity.RussianSquareActivity"
             android:label="俄罗斯方块" />
 
         <!-- 音乐播放器 -->
@@ -88,6 +90,7 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".activity.CustomViewActivity"></activity>
     </application>
 
 </manifest>

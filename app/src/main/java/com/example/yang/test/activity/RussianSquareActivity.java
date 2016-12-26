@@ -365,7 +365,7 @@ public class RussianSquareActivity extends AppCompatActivity {
         for (int y = 3;y>=0;y--){
             for (int x = 0;x<4;x++) {
                 if (square[x][y]==1){
-                    imageViews[rawY][x].setBackgroundColor(getResources().getColor(R.color.white));
+                    imageViews[y][x].setBackgroundColor(getResources().getColor(R.color.white));
                 }
             }
         }

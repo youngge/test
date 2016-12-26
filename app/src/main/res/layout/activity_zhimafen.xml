@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
-    <com.example.yang.test.view.CustomView
+    <com.example.yang.test.view.ZhifuView
         android:id="@+id/customview"
         android:layout_width="match_parent"
         app:maxNum="900"

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.example.yang.test.view.CustomTopBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        app:leftBackground="@color/colorAccent"
+        app:leftTextColor="@color/white"
+        app:leftText="back"
+        app:rightBackground="@color/colorAccent"
+        app:rightText="more"
+        app:rightTextColor="@color/white"
+        app:title="custom"
+        app:titleColor="@color/white"
+        app:titleSize="14sp"
+        />
+
+    <com.example.yang.test.view.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="customTextView" />
+</LinearLayout>

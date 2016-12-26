@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomView">
+    <declare-styleable name="ZhifuView">
         <attr name="maxNum" format="integer"/>
         <attr name="startAngle" format="integer"/>
         <attr name="sweepAngle" format="integer"/>
@@ -29,5 +29,17 @@
     </declare-styleable>
     <declare-styleable name="Themes">
         <attr name="numberProgressBarStyle" format="reference"/>
+    </declare-styleable>
+    
+    <declare-styleable name="CustomTopBar">
+        <attr name="leftText" format="string"/>
+        <attr name="leftTextColor" format="color"/>
+        <attr name="leftBackground" format="color|reference"/>
+        <attr name="title" format="string"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextColor" format="color"/>
+        <attr name="rightBackground" format="color|reference"/>
     </declare-styleable>
 </resources>

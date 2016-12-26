@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.activity.CustomViewActivity;
 import com.example.yang.test.activity.GameActivity;
 import com.example.yang.test.activity.MusicActivity;
 import com.example.yang.test.activity.NotificationActivity;
@@ -75,6 +76,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                         break;
                     case 4:
                         intent.setClass(mContext,RussianSquareActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case 5:
+                        intent.setClass(mContext,CustomViewActivity.class);
                         mContext.startActivity(intent);
                         break;
                 }

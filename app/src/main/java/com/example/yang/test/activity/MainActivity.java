@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         dataList.add("通知");
         dataList.add("2048小游戏");
         dataList.add("俄罗斯方块");
+        dataList.add("custom view");
         dataList.add("test01");
         dataList.add("test02");
         dataList.add("test03");

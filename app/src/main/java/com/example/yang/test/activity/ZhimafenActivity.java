@@ -13,7 +13,7 @@ import android.widget.SeekBar;
 
 import com.example.yang.test.R;
 import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.view.CustomView;
+import com.example.yang.test.view.ZhifuView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
@@ -25,7 +25,7 @@ public class ZhimafenActivity extends BaseActivity {
     @ViewInject(R.id.seekbar02)
     private SeekBar seekBar02;
     @ViewInject(R.id.customview)
-    private CustomView customview;
+    private ZhifuView customview;
     @ViewInject(R.id.edittext)
     private EditText edittext;
     @ViewInject(R.id.btn)
