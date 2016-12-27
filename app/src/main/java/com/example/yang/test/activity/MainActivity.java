@@ -12,23 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.HomeAdapter;
-import com.example.yang.test.bean.TestBean;
 import com.example.yang.test.net.IRequestCallback;
 import com.example.yang.test.net.IRequestManager;
 import com.example.yang.test.net.RequestFactory;
 import com.example.yang.test.util.LogUtils;
 import com.example.yang.test.util.ToastUtil;
-import com.google.gson.Gson;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Snackbar.make(v, "more", Snackbar.LENGTH_SHORT).show();
             }
         });
+
 
     }
 

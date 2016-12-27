@@ -3,9 +3,11 @@ package com.example.yang.test.net;
 import android.os.Handler;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -50,12 +52,25 @@ public class OkHttpRequestManager implements IRequestManager {
         addCallBack(requestCallback, request);
     }
 
+//    @Override
+//    public void post(String url, String requestBodyJson, IRequestCallback requestCallback) {
+//        RequestBody body = RequestBody.create(TYPE_JSON, requestBodyJson);
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//        addCallBack(requestCallback, request);
+//    }
     @Override
-    public void post(String url, String requestBodyJson, IRequestCallback requestCallback) {
-        RequestBody body = RequestBody.create(TYPE_JSON, requestBodyJson);
+    public void post(String url, List<Param> params, IRequestCallback requestCallback) {
+        FormBody.Builder builder=new FormBody.Builder();
+        for (Param param : params) {
+            builder.add(param.key, param.value);
+        }
+        RequestBody requestBody = builder.build();
         Request request = new Request.Builder()
                 .url(url)
-                .post(body)
+                .post(requestBody)
                 .build();
         addCallBack(requestCallback, request);
     }
@@ -115,4 +130,5 @@ public class OkHttpRequestManager implements IRequestManager {
 
         });
     }
+
 }
