@@ -29,4 +29,8 @@
         android:gravity="center"
         android:padding="5dp"
         android:text="customTextView" />
+    <com.example.yang.test.view.ClockView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>
