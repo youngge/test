@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.util.DisplayUtil;
 import com.example.yang.test.util.LogUtils;
 
 import static android.R.attr.padding;
@@ -51,7 +53,7 @@ public class CustomTopBar extends RelativeLayout {
         leftTextColor = typedArray.getColor(R.styleable.CustomTopBar_leftTextColor, 0);
         leftBackground = typedArray.getDrawable(R.styleable.CustomTopBar_leftBackground);
         title = typedArray.getString(R.styleable.CustomTopBar_title);
-        titleSize = typedArray.getDimension(R.styleable.CustomTopBar_titleSize, 10);
+        titleSize = typedArray.getDimension(R.styleable.CustomTopBar_titleSize, DisplayUtil.sp2px(context,18));
         titleColor = typedArray.getColor(R.styleable.CustomTopBar_titleColor, 0);
         rightText = typedArray.getString(R.styleable.CustomTopBar_rightText);
         rightTextColor = typedArray.getColor(R.styleable.CustomTopBar_rightTextColor, 0);
@@ -66,7 +68,8 @@ public class CustomTopBar extends RelativeLayout {
         btn_right = new Button(context);
 
         tv_title.setTextColor(titleColor);
-        tv_title.setTextSize(titleSize);
+        LogUtils.d("mtest",DisplayUtil.px2sp(context,titleSize)+"---"+titleSize);
+        tv_title.setTextSize(DisplayUtil.px2sp(context,titleSize));
         tv_title.setText(title);
         btn_left.setBackground(leftBackground);
         btn_left.setTextColor(leftTextColor);
@@ -129,4 +132,5 @@ public class CustomTopBar extends RelativeLayout {
     public void setOnTopbarClickListener(OnTopbarClickListener listener){
         this.onTopbarClickListener = listener;
     }
+
 }

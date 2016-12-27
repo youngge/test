@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by Administrator on 2016/12/26.
+ * Created by czy on 2016/12/26.
  */
 
 public class ClockView extends View {
@@ -17,8 +17,16 @@ public class ClockView extends View {
     private int mHeight = 500;
     private int mRadius = 200;
 
+    private int hour = 0;
+    private int minute= 0;
+    private int second= 0;
+
     private Paint paintHour;
-    private Paint paintMinues;
+    private Paint paintMinute;
+    private Paint paintSecond;
+
+    private final static String AM="AM";
+    private final static String PM="PM";
 
     public ClockView(Context context) {
         this(context, null);
@@ -40,11 +48,17 @@ public class ClockView extends View {
         paintHour.setAntiAlias(true);
         paintHour.setStrokeWidth(8);
 
-        paintMinues = new Paint();
-        paintMinues.setStyle(Paint.Style.FILL);
-        paintMinues.setColor(Color.BLACK);
-        paintMinues.setAntiAlias(true);
-        paintMinues.setStrokeWidth(5);
+        paintMinute = new Paint();
+        paintMinute.setStyle(Paint.Style.FILL);
+        paintMinute.setColor(Color.BLACK);
+        paintMinute.setAntiAlias(true);
+        paintMinute.setStrokeWidth(5);
+
+        paintSecond = new Paint();
+        paintSecond.setStyle(Paint.Style.FILL);
+        paintSecond.setColor(Color.RED);
+        paintSecond.setAntiAlias(true);
+        paintSecond.setStrokeWidth(3);
     }
 
     @Override
@@ -74,27 +88,55 @@ public class ClockView extends View {
         //画外圆
         drawCircle(canvas);
         //画刻度和数字
-        darwScale(canvas);
+        drawScale(canvas);
+        //画am或pm
+        drawAMPM(canvas);
         //画指针
-        darwIndicator(canvas,3,10);
-
+        drawIndicator(canvas,hour,minute,second);
+        //画圆心
+        drawPoint(canvas);
     }
 
-    private void darwIndicator(Canvas canvas,int hour ,int minute) {
+    private void drawAMPM(Canvas canvas) {
+        Paint paintAM= new Paint();
+        paintAM.setColor(Color.BLACK);
+        paintAM.setTextSize(30);
         canvas.save();
-        canvas.translate(mWidth/2,mHeight/2);
-        //计算时针的角度
-        float hourDegree = hour/12.0f*360+minute/60.0f*(5/60.0f*360);
-        canvas.rotate(hourDegree);
-        canvas.drawLine(0,0,0,mRadius/3*2-mHeight/2,paintHour);
-//        canvas.restore();
-//        canvas.save();
-        canvas.rotate(minute/60.0f*360-hourDegree);
-        canvas.drawLine(0,0,0,mRadius/2-mHeight/2,paintMinues);
+        if (hour<12) {
+            canvas.drawText(AM,mWidth/2-paintAM.measureText(AM)/2,mHeight/2-mRadius/3*2,paintAM);
+        }else{
+            canvas.drawText(PM,mWidth/2-paintAM.measureText(PM)/2,mHeight/2-mRadius/3*2,paintAM);
+        }
+    }
+
+    private void drawPoint(Canvas canvas) {
+        canvas.save();
+        Paint paintPoint = new Paint();
+        paintPoint.setStyle(Paint.Style.FILL);
+        paintPoint.setColor(Color.BLACK);
+        canvas.drawCircle(mWidth/2,mHeight/2,10,paintPoint);
         canvas.restore();
     }
 
-    private void darwScale(Canvas canvas) {
+    private void drawIndicator(Canvas canvas,int hour ,int minute,int second) {
+        canvas.save();
+        canvas.translate(mWidth/2,mHeight/2);
+        //计算秒针的角度
+        float secondDegree = second / 60.0f*360;
+        canvas.rotate(secondDegree);
+        canvas.drawLine(0,0,0,mRadius/3-mHeight/2,paintSecond);
+        //计算分针的角度
+        float minuesDegree = minute/60.0f*360+second/60.0f*1/60.0f*360;
+        canvas.rotate(minuesDegree-secondDegree);
+        canvas.drawLine(0,0,0,mRadius/2-mHeight/2,paintMinute);
+        //计算时针的角度
+        float hourDegree = hour/12.0f*360+minute/60.0f*(5/60.0f*360);
+        canvas.rotate(hourDegree-minuesDegree);
+        canvas.drawLine(0,0,0,mRadius/3*2-mHeight/2,paintHour);
+        canvas.restore();
+    }
+
+    private void drawScale(Canvas canvas) {
         canvas.save();
         Paint paintScale = new Paint();
         paintScale.setStyle(Paint.Style.FILL);
@@ -104,17 +146,17 @@ public class ClockView extends View {
             if (i % 5 == 0) {
                 paintScale.setStrokeWidth(3);
                 paintScale.setColor(Color.BLACK);
-                paintScale.setTextSize(15);
-                canvas.drawLine(mWidth/2, mHeight/2 - mRadius, mWidth/2, mHeight/2 - mRadius + 20, paintScale);
+                paintScale.setTextSize(25);
+                canvas.drawLine(mWidth/2, mHeight/2 - mRadius, mWidth/2, mHeight/2 - mRadius + 30, paintScale);
                 String num = String.valueOf(i/5);
                 if ("0".equals(num)){
                     num = "12";
                 }
-                canvas.drawText(num,mWidth/2-paintScale.measureText(num)/2,mHeight/2-mRadius+40,paintScale);
+                canvas.drawText(num,mWidth/2-paintScale.measureText(num)/2,mHeight/2-mRadius+50,paintScale);
             } else {
                 paintScale.setStrokeWidth(2);
                 paintScale.setColor(Color.GRAY);
-                canvas.drawLine(mWidth/2, mHeight/2 - mRadius, mWidth/2, mHeight/2 - mRadius + 10, paintScale);
+                canvas.drawLine(mWidth/2, mHeight/2 - mRadius, mWidth/2, mHeight/2 - mRadius + 20, paintScale);
             }
             canvas.rotate(6, mWidth/2, mHeight/2);
         }
@@ -129,5 +171,12 @@ public class ClockView extends View {
         paintCircle.setStrokeWidth(5);
         canvas.drawCircle(mWidth/2, mHeight/2, mRadius, paintCircle);
         canvas.restore();
+    }
+
+    public void updateTime(int hour,int minute,int second){
+        this.hour=hour;
+        this.minute=minute;
+        this.second=second;
+        invalidate();
     }
 }

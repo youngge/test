@@ -18,7 +18,7 @@
         app:rightTextColor="@color/white"
         app:title="custom"
         app:titleColor="@color/white"
-        app:titleSize="14sp"
+        app:titleSize="18sp"
         />
 
     <com.example.yang.test.view.CustomTextView
@@ -30,6 +30,7 @@
         android:padding="5dp"
         android:text="customTextView" />
     <com.example.yang.test.view.ClockView
+        android:id="@+id/clockview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
