@@ -12,10 +12,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.application.BaseActivity;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends BaseActivity {
 
     @ViewInject(R.id.top_score)
     private TextView top_scoreTextView;

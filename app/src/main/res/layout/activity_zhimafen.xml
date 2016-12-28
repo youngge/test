@@ -4,60 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_collapseMode="pin" />
+
+    <include layout="@layout/toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
         android:layout_height="wrap_content"
-        >
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-    <SeekBar
-        android:id="@+id/seekbar01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <SeekBar
-        android:id="@+id/seekbar02"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <SeekBar
+                android:id="@+id/seekbar01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/edittext"
-        android:hint="请输入数值"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+            <SeekBar
+                android:id="@+id/seekbar02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
 
-    <Button
-        android:id="@+id/btn"
-        android:text="G O"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+            <EditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="请输入数值"
+                android:inputType="number" />
 
-    <com.example.yang.test.view.ZhifuView
-        android:id="@+id/customview"
-        android:layout_width="match_parent"
-        app:maxNum="900"
-        app:startAngle="160"
-        app:sweepAngle="220"
-        android:background="#000000"
-        android:layout_height="match_parent" />
-    <EditText
-        android:hint="0"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-</LinearLayout>
+            <Button
+                android:id="@+id/btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="G O" />
+
+            <com.example.yang.test.view.ZhifuView
+                android:id="@+id/customview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000"
+                app:maxNum="900"
+                app:startAngle="160"
+                app:sweepAngle="220" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="0"
+                android:inputType="number" />
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>

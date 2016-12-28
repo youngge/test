@@ -18,6 +18,7 @@ import android.view.View;
 
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.HomeAdapter;
+import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @ViewInject(R.id.mRecyclerView)
     private RecyclerView mRecyclerView;
@@ -123,16 +124,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         dataList.add("2048小游戏");
         dataList.add("俄罗斯方块");
         dataList.add("custom view");
-        dataList.add("test01");
-        dataList.add("test02");
-        dataList.add("test03");
-        dataList.add("test04");
-        dataList.add("test05");
-        dataList.add("test06");
-        dataList.add("test07");
-        dataList.add("test08");
-        dataList.add("test09");
-        dataList.add("test10");
+        dataList.add("动画");
+        dataList.add("运行时权限");
     }
 
     @Override

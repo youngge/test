@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.activity.AnimationActivity;
 import com.example.yang.test.activity.CustomViewActivity;
 import com.example.yang.test.activity.GameActivity;
 import com.example.yang.test.activity.MusicActivity;
 import com.example.yang.test.activity.NotificationActivity;
+import com.example.yang.test.activity.PermissionActivity;
 import com.example.yang.test.activity.RussianSquareActivity;
 import com.example.yang.test.activity.ZhimafenActivity;
 
@@ -80,6 +82,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                         break;
                     case 5:
                         intent.setClass(mContext,CustomViewActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case 6:
+                        intent.setClass(mContext,AnimationActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case 7:
+                        intent.setClass(mContext,PermissionActivity.class);
                         mContext.startActivity(intent);
                         break;
                 }

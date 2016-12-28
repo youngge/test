@@ -1,14 +1,13 @@
 package com.example.yang.test.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.util.DateUtils;
+import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.view.ClockView;
 import com.example.yang.test.view.CustomTopBar;
 import com.lidroid.xutils.ViewUtils;
@@ -18,7 +17,7 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CustomViewActivity extends AppCompatActivity {
+public class CustomViewActivity extends BaseActivity {
 
     @ViewInject(R.id.topbar)
     private CustomTopBar topbar;

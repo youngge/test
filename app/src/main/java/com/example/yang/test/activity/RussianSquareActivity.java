@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.util.LogUtils;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -22,7 +23,7 @@ import java.util.TimerTask;
 import static android.R.attr.x;
 import static android.R.attr.y;
 
-public class RussianSquareActivity extends AppCompatActivity {
+public class RussianSquareActivity extends BaseActivity {
 
     @ViewInject(R.id.iv_a1)
     private ImageView iv_a1;

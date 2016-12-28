@@ -4,13 +4,8 @@
     android:background="#50000000"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        />
+
+    <include layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
