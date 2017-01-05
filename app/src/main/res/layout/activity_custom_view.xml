@@ -16,7 +16,7 @@
         app:rightBackground="@color/colorAccent"
         app:rightText="more"
         app:rightTextColor="@color/white"
-        app:title="custom"
+        app:title="自定义控件"
         app:titleColor="@color/white"
         app:titleSize="18sp"
         />

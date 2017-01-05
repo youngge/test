@@ -1,5 +1,6 @@
 package com.example.yang.test.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -8,7 +9,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +19,7 @@ import android.view.View;
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.HomeAdapter;
 import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.minterface.IHomeClickListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -92,7 +93,54 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         initData();
 
 //        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerAdapter = new HomeAdapter(dataList);
+        mRecyclerAdapter = new HomeAdapter(dataList, new IHomeClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent();
+                switch (position){
+                    case 0:
+                        intent.setClass(MainActivity.this,ZhimafenActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        intent.setClass(MainActivity.this,MusicActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent.setClass(MainActivity.this,NotificationActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent.setClass(MainActivity.this,GameActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent.setClass(MainActivity.this,RussianSquareActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        intent.setClass(MainActivity.this,CustomViewActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 6:
+                        intent.setClass(MainActivity.this,AnimationActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 7:
+                        intent.setClass(MainActivity.this,PermissionActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 8:
+                        intent.setClass(MainActivity.this,XunfeiActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 9:
+                        intent.setClass(MainActivity.this,XunfeiActivity02.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -123,9 +171,11 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add("通知");
         dataList.add("2048小游戏");
         dataList.add("俄罗斯方块");
-        dataList.add("custom view");
+        dataList.add("自定义控件");
         dataList.add("动画");
         dataList.add("运行时权限");
+        dataList.add("讯飞语音转文字");
+        dataList.add("讯飞语音转文字2");
     }
 
     @Override

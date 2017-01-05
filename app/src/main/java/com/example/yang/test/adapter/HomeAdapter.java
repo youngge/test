@@ -18,6 +18,7 @@ import com.example.yang.test.activity.NotificationActivity;
 import com.example.yang.test.activity.PermissionActivity;
 import com.example.yang.test.activity.RussianSquareActivity;
 import com.example.yang.test.activity.ZhimafenActivity;
+import com.example.yang.test.minterface.IHomeClickListener;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private  Context mContext;
 
     private List<String> mList;
+    private IHomeClickListener homeClickListener;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -44,8 +46,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
     }
 
-    public HomeAdapter(List<String> list) {
+    public HomeAdapter(List<String> list, IHomeClickListener listener) {
         this.mList = list;
+        this.homeClickListener = listener;
     }
 
     @Override
@@ -58,42 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         viewHolder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                switch (viewHolder.getAdapterPosition()){
-                    case 0:
-                        intent.setClass(mContext,ZhimafenActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 1:
-                        intent.setClass(mContext,MusicActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 2:
-                        intent.setClass(mContext,NotificationActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 3:
-                        intent.setClass(mContext,GameActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 4:
-                        intent.setClass(mContext,RussianSquareActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 5:
-                        intent.setClass(mContext,CustomViewActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 6:
-                        intent.setClass(mContext,AnimationActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                    case 7:
-                        intent.setClass(mContext,PermissionActivity.class);
-                        mContext.startActivity(intent);
-                        break;
-                }
-
+                homeClickListener.onItemClick(viewHolder.getAdapterPosition());
             }
         });
         viewHolder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
