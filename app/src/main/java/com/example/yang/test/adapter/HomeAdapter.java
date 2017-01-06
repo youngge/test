@@ -1,7 +1,6 @@
 package com.example.yang.test.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,15 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.activity.AnimationActivity;
-import com.example.yang.test.activity.CustomViewActivity;
-import com.example.yang.test.activity.GameActivity;
-import com.example.yang.test.activity.MusicActivity;
-import com.example.yang.test.activity.NotificationActivity;
-import com.example.yang.test.activity.PermissionActivity;
-import com.example.yang.test.activity.RussianSquareActivity;
-import com.example.yang.test.activity.ZhimafenActivity;
-import com.example.yang.test.minterface.IHomeClickListener;
+import com.example.yang.test.minterface.ItemClickListener;
 
 import java.util.List;
 
@@ -31,7 +22,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private  Context mContext;
 
     private List<String> mList;
-    private IHomeClickListener homeClickListener;
+    private ItemClickListener homeClickListener;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -46,7 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         }
     }
 
-    public HomeAdapter(List<String> list, IHomeClickListener listener) {
+    public HomeAdapter(List<String> list, ItemClickListener listener) {
         this.mList = list;
         this.homeClickListener = listener;
     }

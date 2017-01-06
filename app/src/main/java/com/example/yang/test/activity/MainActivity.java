@@ -19,7 +19,7 @@ import android.view.View;
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.HomeAdapter;
 import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.minterface.IHomeClickListener;
+import com.example.yang.test.minterface.ItemClickListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         initData();
 
 //        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerAdapter = new HomeAdapter(dataList, new IHomeClickListener() {
+        mRecyclerAdapter = new HomeAdapter(dataList, new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent();
@@ -138,6 +138,10 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                         intent.setClass(MainActivity.this,XunfeiActivity02.class);
                         startActivity(intent);
                         break;
+                    case 10:
+                        intent.setClass(MainActivity.this,WifiActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
@@ -176,6 +180,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add("运行时权限");
         dataList.add("讯飞语音转文字");
         dataList.add("讯飞语音转文字2");
+        dataList.add("wifi操作");
     }
 
     @Override

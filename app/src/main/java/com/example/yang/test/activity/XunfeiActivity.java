@@ -36,7 +36,6 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
 
     private StringBuilder mStringBuilder = new StringBuilder();
 
-    private WifiManager wifiManager;
 
     //听写监听器
     private RecognizerListener mRecoListener = new RecognizerListener() {
@@ -88,8 +87,6 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         }
 
         btn_start.setOnClickListener(this);
-         wifiManager=(WifiManager) getSystemService(Service.WIFI_SERVICE);
-
 
     }
 
@@ -150,12 +147,7 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btn_start:
 //                btnVoice();
-//                transform();
-                if (wifiManager.isWifiEnabled()){
-                    wifiManager.setWifiEnabled(false);
-                }else{
-                    wifiManager.setWifiEnabled(true);
-                }
+                transform();
                 break;
         }
     }
