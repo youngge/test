@@ -8,11 +8,32 @@
 
     <include layout="@layout/toolbar"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="top"
+        android:padding="8dp"
+        android:id="@+id/et_content"
+        android:hint="在这里输入文本"/>
+
     <Button
         android:id="@+id/btn_start"
-        android:layout_margin="12dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:text="start"
+        android:layout_height="48dp" />
+    <Button
+        android:id="@+id/btn01"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:text="文本理解"
+        android:layout_height="48dp" />
+
+    <Button
+        android:id="@+id/btn02"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:text="语音理解"
         android:layout_height="48dp" />
 
     <TextView

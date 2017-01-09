@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.yang.test.activity.xunfei.JsonParser;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerListener;
@@ -31,14 +32,9 @@ import java.util.LinkedHashMap;
 
 public class XunfeiUtil {
     private Context context;
-    private SpeechRecognizer speechRecognizer;//
+    private SpeechRecognizer speechRecognizer;
     private String mEngineType;// 转译类型
-    private static String TAG = "SpeechService_";
-
-    public XunfeiUtil() {
-    }
-
-    ;
+    private static String TAG = "XunfeiUtil";
 
     /**
      * 录音转译功能封装类
@@ -53,7 +49,6 @@ public class XunfeiUtil {
     ;
 
     private RecognizerDialog speechRecognizerDialog;
-//    private SharedPreferences mSharedPreferences;
 
     /**
      * 返回语音转换对象，
@@ -62,24 +57,12 @@ public class XunfeiUtil {
      * 返回语音识别器对象，在当前Activity的生命周期中需要用到，进行销毁暂停等操作
      */
     public SpeechRecognizer initIflytek() {
-        // 注册
-        // 这里替换为你自己的Appid
-        SpeechUtility.createUtility(context, SpeechConstant.APPID
-                + "=586d0554");
         // 使用SpeechRecognizer对象，可根据回调消息自定义界面；
         speechRecognizer = SpeechRecognizer.createRecognizer(context,
                 mInitListener);
         // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
         // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         speechRecognizerDialog = new RecognizerDialog(context, mInitListener);
-
-//        mSharedPreferences = context.getSharedPreferences(
-//                IatSettings.PREFER_NAME, Activity.MODE_PRIVATE);
-        // mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-        // et_remark = ((EditText) findViewById(R.id.iat_text));
-        // mInstaller = new ApkInstaller(context);
-        // Activity activity = (Activity) context;
-
         return speechRecognizer;
     }
 
@@ -101,8 +84,7 @@ public class XunfeiUtil {
     private HashMap<String, String> speechRecognizerResults = new LinkedHashMap<String, String>();
 
     private void printResult(RecognizerResult results) {
-//        String text = JsonParser.parseIatResult(results.getResultString());
-        String text = results.getResultString();
+        String text = JsonParser.parseIatResult(results.getResultString());
 
         String sn = null;
         // 读取json结果中的sn字段
@@ -121,16 +103,6 @@ public class XunfeiUtil {
         }
         currentEditText.setText(resultBuffer.toString());
         currentEditText.setSelection(currentEditText.length());
-        // switch (voiceType) {
-        // case 1:// 今日小结
-        // mEdResult.setText(resultBuffer.toString());
-        // mEdResult.setSelection(mEdResult.length());
-        // break;
-        // case 2:// 补充说明
-        // mEdSuppleExplan.setText(resultBuffer.toString());
-        // mEdSuppleExplan.setSelection(mEdSuppleExplan.length());
-        // break;
-        // }
     }
 
     private EditText currentEditText;// 当前需要赋值的EditText
@@ -153,7 +125,7 @@ public class XunfeiUtil {
         setParam();
 //        boolean isShowDialog = mSharedPreferences.getBoolean(
 //                context.getString(R.string.pref_key_iat_show), true);
-        boolean isShowDialog = false;
+        boolean isShowDialog = true;
         if (isShowDialog) {
             // 显示听写对话框
             speechRecognizerDialog.setListener(mRecognizerDialogListener);

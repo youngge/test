@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.yang.test.R;
+import com.example.yang.test.activity.xunfei.SpeechActivity;
 import com.example.yang.test.adapter.HomeAdapter;
 import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.minterface.ItemClickListener;
@@ -43,6 +44,20 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     private List<String> dataList = new ArrayList<>();
     private HomeAdapter mRecyclerAdapter;
+
+    private final static int CORE_ZHIMAFEN = 0;
+    private final static int CORE_MUSIC = 1;
+    private final static int CORE_NOTIFICATION = 2;
+    private final static int CORE_GAME = 3;
+    private final static int CORE_RUSSIANSQUARE = 4;
+    private final static int CORE_CUSTOMVIEW = 5;
+    private final static int CORE_ANIMATION = 6;
+    private final static int CORE_PERMISSION = 7;
+    private final static int CORE_XUNFEI = 8;
+    private final static int CORE_XUNFEI02 = 9;
+    private final static int CORE_WIFI = 10;
+    private final static int CORE_CARDWIFI = 11;
+    private final static int CORE_SPEECHDEMO = 12;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,48 +113,56 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             public void onItemClick(int position) {
                 Intent intent = new Intent();
                 switch (position){
-                    case 0:
+                    case CORE_ZHIMAFEN:
                         intent.setClass(MainActivity.this,ZhimafenActivity.class);
                         startActivity(intent);
                         break;
-                    case 1:
+                    case CORE_MUSIC:
                         intent.setClass(MainActivity.this,MusicActivity.class);
                         startActivity(intent);
                         break;
-                    case 2:
+                    case CORE_NOTIFICATION:
                         intent.setClass(MainActivity.this,NotificationActivity.class);
                         startActivity(intent);
                         break;
-                    case 3:
+                    case CORE_GAME:
                         intent.setClass(MainActivity.this,GameActivity.class);
                         startActivity(intent);
                         break;
-                    case 4:
+                    case CORE_RUSSIANSQUARE:
                         intent.setClass(MainActivity.this,RussianSquareActivity.class);
                         startActivity(intent);
                         break;
-                    case 5:
+                    case CORE_CUSTOMVIEW:
                         intent.setClass(MainActivity.this,CustomViewActivity.class);
                         startActivity(intent);
                         break;
-                    case 6:
+                    case CORE_ANIMATION:
                         intent.setClass(MainActivity.this,AnimationActivity.class);
                         startActivity(intent);
                         break;
-                    case 7:
+                    case CORE_PERMISSION:
                         intent.setClass(MainActivity.this,PermissionActivity.class);
                         startActivity(intent);
                         break;
-                    case 8:
+                    case CORE_XUNFEI:
                         intent.setClass(MainActivity.this,XunfeiActivity.class);
                         startActivity(intent);
                         break;
-                    case 9:
-                        intent.setClass(MainActivity.this,XunfeiActivity02.class);
+                    case CORE_XUNFEI02:
+                        intent.setClass(MainActivity.this,XFSpeechActivity.class);
                         startActivity(intent);
                         break;
-                    case 10:
+                    case CORE_WIFI:
                         intent.setClass(MainActivity.this,WifiActivity.class);
+                        startActivity(intent);
+                        break;
+                    case CORE_CARDWIFI:
+                        intent.setClass(MainActivity.this,CarWifiActivity.class);
+                        startActivity(intent);
+                        break;
+                    case CORE_SPEECHDEMO:
+                        intent.setClass(MainActivity.this,SpeechActivity.class);
                         startActivity(intent);
                         break;
                 }
@@ -178,9 +201,13 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add("自定义控件");
         dataList.add("动画");
         dataList.add("运行时权限");
+        dataList.add("讯飞语音识别(问答)");
         dataList.add("讯飞语音转文字");
-        dataList.add("讯飞语音转文字2");
         dataList.add("wifi操作");
+        dataList.add("wifi操作玩具车");
+        dataList.add("讯飞语音示例");
+        dataList.add("空");
+        dataList.add("空");
     }
 
     @Override
