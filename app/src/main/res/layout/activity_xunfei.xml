@@ -8,7 +8,7 @@
 
     <include layout="@layout/toolbar"/>
 
-    <EditText
+    <com.example.yang.test.view.ClearEditText
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="top"
@@ -36,6 +36,9 @@
         android:text="语音理解"
         android:layout_height="48dp" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/tv_content"
@@ -43,4 +46,5 @@
         android:textSize="14sp"
         android:textColor="@color/black"
         android:layout_height="wrap_content" />
+    </ScrollView>
 </LinearLayout>

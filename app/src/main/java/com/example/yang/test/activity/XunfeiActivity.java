@@ -1,5 +1,6 @@
 package com.example.yang.test.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.yang.test.R;
 import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.util.LogUtils;
+import com.example.yang.test.view.ClearEditText;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.GrammarListener;
 import com.iflytek.cloud.InitListener;
@@ -50,7 +53,7 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
     @ViewInject(R.id.tv_content)
     private TextView tv_content;
     @ViewInject(R.id.et_content)
-    private EditText et_content;
+    private ClearEditText et_content;
 
 
     // 语义理解对象（语音到语义）。
@@ -210,6 +213,14 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
                 tv_content.setText("");
 //                String text = "广州明天的天气怎么样？";
                 String text = et_content.getText().toString();
+                if (TextUtils.isEmpty(text)){
+                    et_content.setShakeAnimation();
+                    return;
+                }
+
+                InputMethodManager imm =
+                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(et_content.getWindowToken(), 0);
                 showTip(text);
 
                 if(mTextUnderstander.isUnderstanding()){

@@ -75,8 +75,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
         //设置刷新时动画的颜色，可以设置4个
         if (mSwipeRefreshLayout != null) {
-            mSwipeRefreshLayout.setProgressViewOffset(false, 0, 100);
+            mSwipeRefreshLayout.setProgressViewOffset(true, 0, 100);
 //            mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+//            mSwipeRefreshLayout.setProgressBackgroundColor(android.R.color.holo_blue_light);
             mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
             mSwipeRefreshLayout.setOnRefreshListener(this);
         }
