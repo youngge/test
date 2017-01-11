@@ -8,9 +8,16 @@
 
     <include layout="@layout/toolbar"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/et_content"
+        android:hint="输入内容"
+        android:padding="5dp"
+        android:layout_height="50dp" />
+
     <Button
         android:layout_width="match_parent"
-        android:text="click"
+        android:text="查询数据"
         android:id="@+id/btn_click"
         android:padding="5dp"
         android:layout_height="40dp" />
@@ -20,7 +27,7 @@
         android:layout_width="match_parent"
         android:id="@+id/tv_speed"
         android:gravity="center"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

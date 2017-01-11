@@ -16,7 +16,6 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-        LogUtils.d("mtest",SpeechConstant.APPID +"=586db7d6");
         SpeechUtility.createUtility(MyApplication.this, "appid=" +"586db7d6");
         super.onCreate();
     }

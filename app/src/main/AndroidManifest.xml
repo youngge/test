@@ -85,6 +85,9 @@
         <activity
             android:name=".activity.xunfei.IatDemo"
             android:label="语音转写" />
+        <activity
+            android:name=".activity.ServerActivity"
+            android:label="读取本地服务器数据" />
 
         <!-- 音乐播放器 -->
         <service android:name=".service.MusicService" />

@@ -6,12 +6,10 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,30 +18,21 @@ import com.example.yang.test.application.BaseActivity;
 import com.example.yang.test.util.LogUtils;
 import com.example.yang.test.view.ClearEditText;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.GrammarListener;
 import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUnderstander;
 import com.iflytek.cloud.SpeechUnderstanderListener;
 import com.iflytek.cloud.TextUnderstander;
 import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
-import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.iflytek.sunflower.FlowerCollector;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 public class XunfeiActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String APPID = "586ded21";
     @ViewInject(R.id.btn_start)
     private Button btn_start;
     @ViewInject(R.id.btn01)
@@ -74,7 +63,7 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onInit(int code) {
             if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败,错误码："+code);
+                showTip("初始化失败,错误码：" + code);
             }
         }
     };
@@ -87,7 +76,7 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void onInit(int code) {
             if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败,错误码："+code);
+                showTip("初始化失败,错误码：" + code);
             }
         }
     };
@@ -99,22 +88,26 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
             if (null != result) {
                 // 显示
                 String text = result.getResultString();
-                LogUtils.d("mtest",text);
+                LogUtils.d("mtest", text);
                 if (!TextUtils.isEmpty(text)) {
-                    tv_content.setText(text);
+                    tv_content.setText(parseIatResult(text));
+                    if (!TextUtils.isEmpty(tv_content.getText().toString())){
+                        tv_content.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    showTip("识别结果不正确。");
                 }
-            } else {
-                showTip("识别结果不正确。");
             }
         }
 
         @Override
         public void onError(SpeechError error) {
             // 文本语义不能使用回调错误码14002，请确认您下载sdk时是否勾选语义场景和私有语义的发布
-            showTip("onError Code："	+ error.getErrorCode());
+            showTip("onError Code：" + error.getErrorCode());
 
         }
     };
+
 
     /**
      * 语义理解回调。
@@ -126,9 +119,12 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
             if (null != result) {
                 // 显示
                 String text = result.getResultString();
-                LogUtils.d("mtest",text);
+                LogUtils.d("mtest", text);
                 if (!TextUtils.isEmpty(text)) {
-                    tv_content.setText(text);
+                    tv_content.setText(parseIatResult(text));
+                    if (!TextUtils.isEmpty(tv_content.getText().toString())){
+                        tv_content.setVisibility(View.VISIBLE);
+                    }
                 }
             } else {
                 showTip("识别结果不正确。");
@@ -211,26 +207,25 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
             // 开始文本理解
             case R.id.btn01:
                 tv_content.setText("");
+                tv_content.setVisibility(View.GONE);
 //                String text = "广州明天的天气怎么样？";
                 String text = et_content.getText().toString();
-                if (TextUtils.isEmpty(text)){
+                if (TextUtils.isEmpty(text)) {
                     et_content.setShakeAnimation();
                     return;
                 }
 
                 InputMethodManager imm =
-                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(et_content.getWindowToken(), 0);
-                showTip(text);
 
-                if(mTextUnderstander.isUnderstanding()){
+                if (mTextUnderstander.isUnderstanding()) {
                     mTextUnderstander.cancel();
                     showTip("取消");
-                }else {
+                } else {
                     ret = mTextUnderstander.understandText(text, mTextUnderstanderListener);
-                    if(ret != 0)
-                    {
-                        showTip("语义理解失败,错误码:"+ ret);
+                    if (ret != 0) {
+                        showTip("语义理解失败,错误码:" + ret);
                     }
                 }
                 break;
@@ -238,17 +233,23 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
             // 开始语音理解
             case R.id.btn02:
                 tv_content.setText("");
+                tv_content.setVisibility(View.GONE);
+
+                InputMethodManager imm2 =
+                        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm2.hideSoftInputFromWindow(et_content.getWindowToken(), 0);
+
                 // 设置参数
                 setParam();
 
-                if(mSpeechUnderstander.isUnderstanding()){// 开始前检查状态
+                if (mSpeechUnderstander.isUnderstanding()) {// 开始前检查状态
                     mSpeechUnderstander.stopUnderstanding();
                     showTip("停止录音");
-                }else {
+                } else {
                     ret = mSpeechUnderstander.startUnderstanding(mSpeechUnderstanderListener);
-                    if(ret != 0){
-                        showTip("语义理解失败,错误码:"	+ ret);
-                    }else {
+                    if (ret != 0) {
+                        showTip("语义理解失败,错误码:" + ret);
+                    } else {
                         showTip("请开始说话…");
                     }
                 }
@@ -256,31 +257,24 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    //回调结果：
-    private void printResult(com.iflytek.cloud.RecognizerResult results) {
-        String text = parseIatResult(results.getResultString());
-        // 自动填写地址
-        mStringBuilder.append(text);
-        tv_content.setText(mStringBuilder.toString());
-    }
-
     public static String parseIatResult(String json) {
-        StringBuffer ret = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
         try {
-            JSONTokener tokener = new JSONTokener(json);
-            JSONObject joResult = new JSONObject(tokener);
-
-            JSONArray words = joResult.getJSONArray("ws");
-            for (int i = 0; i < words.length(); i++) {
-                // 转写结果词，默认使用第一个结果
-                JSONArray items = words.getJSONObject(i).getJSONArray("cw");
-                JSONObject obj = items.getJSONObject(0);
-                ret.append(obj.getString("w"));
+            JSONObject joResult = new JSONObject(json);
+            JSONObject answer = joResult.getJSONObject("answer");
+            if (answer == null) {
+                return "";
+            }
+            String text = answer.getString("text");
+            String question = joResult.getString("text");
+            if (text != null && question != null) {
+                builder.append("问：" + question + "\n\n");
+                builder.append("答：" + text);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ret.toString();
+        return builder.toString();
     }
 
     @Override
@@ -289,7 +283,7 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         // 退出时释放连接
         mSpeechUnderstander.cancel();
         mSpeechUnderstander.destroy();
-        if(mTextUnderstander.isUnderstanding())
+        if (mTextUnderstander.isUnderstanding())
             mTextUnderstander.cancel();
         mTextUnderstander.destroy();
     }
@@ -301,14 +295,15 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
 
     /**
      * 参数设置
+     *
      * @return
      */
-    public void setParam(){
+    public void setParam() {
         String lang = "mandarin";
         if (lang.equals("en_us")) {
             // 设置语言
             mSpeechUnderstander.setParameter(SpeechConstant.LANGUAGE, "en_us");
-        }else {
+        } else {
             // 设置语言
             mSpeechUnderstander.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
             // 设置语言区域
@@ -321,12 +316,12 @@ public class XunfeiActivity extends BaseActivity implements View.OnClickListener
         mSpeechUnderstander.setParameter(SpeechConstant.VAD_EOS, "1000");
 
         // 设置标点符号，默认：1（有标点）
-        mSpeechUnderstander.setParameter(SpeechConstant.ASR_PTT,  "1");
+        mSpeechUnderstander.setParameter(SpeechConstant.ASR_PTT, "1");
 
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
         mSpeechUnderstander.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mSpeechUnderstander.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/sud.wav");
+        mSpeechUnderstander.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/sud.wav");
     }
 
 }

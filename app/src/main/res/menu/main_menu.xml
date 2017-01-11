@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_share"
-        android:icon="@android:drawable/ic_menu_share"
-        android:title="share"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item android:id="@+id/menu_camera"
+        android:icon="@mipmap/icon_camera"
+        android:title="camera"
         app:showAsAction="always"/>
-    <item android:id="@+id/menu_delete"
-        android:icon="@android:drawable/ic_menu_delete"
-        android:title="delete"
+    <item android:id="@+id/menu_voice"
+        android:icon="@mipmap/icon_voice"
+        android:title="voice"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/menu_setting"
         android:icon="@android:drawable/ic_menu_set_as"

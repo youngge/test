@@ -13,6 +13,8 @@ import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 
+import com.example.yang.test.R;
+
 /**
  * 带删除按钮的输入框
  */
@@ -48,7 +50,7 @@ public class ClearEditText  extends EditText implements View.OnFocusChangeListen
         //获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
         mClearDrawable = getCompoundDrawables()[2];
         if (mClearDrawable == null) {
-            mClearDrawable = getResources().getDrawable(android.R.drawable.ic_delete);
+            mClearDrawable = getResources().getDrawable(R.mipmap.icon_delete);
         }
         mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth(), mClearDrawable.getIntrinsicHeight());
         //默认设置隐藏图标
