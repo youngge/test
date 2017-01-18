@@ -57,6 +57,7 @@ public class LogUtils {
      * ERROR日志形式的标识符
      */
     public static final int ERROR = 1;
+    private static final String TAG = "mtest";
 
     /**
      * 把异常用来输出日志的综合方法
@@ -135,6 +136,22 @@ public class LogUtils {
         }
         if (isWrite) {
             write(tag, msg);
+        }
+    }
+
+    /**
+     * debug等级的日志输出
+     *
+     * @param msg 内容
+     * @return void 返回类型
+     * @throws
+     */
+    public static void d(String msg) {
+        if (isDeBug) {
+            Log.d(TAG, msg);
+        }
+        if (isWrite) {
+            write(TAG, msg);
         }
     }
 

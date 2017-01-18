@@ -21,6 +21,9 @@ import com.iflytek.sunflower.FlowerCollector;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
+/**
+ * 语音转文字
+ */
 public class XFSpeechActivity extends BaseActivity implements View.OnClickListener {
 
     @ViewInject(R.id.btn_start)
@@ -37,7 +40,7 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xfspeech);
+        setContentView(R.layout.activity_speech);
         ViewUtils.inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

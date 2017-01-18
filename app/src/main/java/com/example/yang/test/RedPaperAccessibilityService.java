@@ -1,7 +1,6 @@
 package com.example.yang.test;
 
 import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -29,7 +28,7 @@ public class RedPaperAccessibilityService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         parents = new ArrayList<>();
-        LogUtils.d("test", "onServiceConnected");
+        LogUtils.d("mtest", "onServiceConnected");
     }
 
     /**
@@ -45,7 +44,7 @@ public class RedPaperAccessibilityService extends AccessibilityService {
                 if (!texts.isEmpty()) {
                     for (CharSequence text : texts) {
                         String content = text.toString();
-                        LogUtils.d("test", content);
+                        LogUtils.d("mtest", content);
                         if (content.contains("[微信红包]")) {
                             //模拟打开通知栏消息，即打开微信
                             if (event.getParcelableData() != null &&
@@ -54,7 +53,7 @@ public class RedPaperAccessibilityService extends AccessibilityService {
                                 PendingIntent pendingIntent = notification.contentIntent;
                                 try {
                                     pendingIntent.send();
-                                    LogUtils.d("test", "进入微信");
+                                    LogUtils.d("mtest", "进入微信");
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -66,18 +65,31 @@ public class RedPaperAccessibilityService extends AccessibilityService {
             //当窗口的状态发生改变时
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 String className = event.getClassName().toString();
+                LogUtils.d("mtest", "className--" + className);
                 if (className.equals("com.tencent.mm.ui.LauncherUI")) {
                     //点击最后一个红包
-                    LogUtils.d("test", "点击红包");
+                    LogUtils.d("mtest", "点击红包");
                     getLastPacket();
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI")) {
                     //开红包
-                    LogUtils.d("test", "开红包");
-                    inputClick("com.tencent.mm:id/lucky_money_recieve_open");
+                    LogUtils.d("mtest", "开红包");
+                    inputClick("com.tencent.mm:id/be_");
+                    List<AccessibilityNodeInfo> nodeInfoList = getRootInActiveWindow().
+                            findAccessibilityNodeInfosByViewId("com.tencent.mm:id/be9");
+                    for (AccessibilityNodeInfo info : nodeInfoList) {
+                        if (info.getText() != null) {
+                            if (info.getText().toString().equals("手慢了，红包派完了")) {
+                                //退出红包-抢不到
+                                LogUtils.d("mtest", "退出红包-抢不到");
+                                inputClick("com.tencent.mm:id/bed");
+                                break;
+                            }
+                        }
+                    }
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI")) {
                     //退出红包
-                    LogUtils.d("test", "退出红包");
-                    inputClick("com.tencent.mm:id/actionbar_up_indicator_btn");
+                    LogUtils.d("mtest", "退出红包");
+                    inputClick("com.tencent.mm:id/gs");
                 }
                 break;
         }
@@ -93,6 +105,7 @@ public class RedPaperAccessibilityService extends AccessibilityService {
         AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
         if (nodeInfo != null) {
             List<AccessibilityNodeInfo> list = nodeInfo.findAccessibilityNodeInfosByViewId(clickId);
+            LogUtils.d("mtest", "list.size()--" + list.size());
             for (AccessibilityNodeInfo item : list) {
                 item.performAction(AccessibilityNodeInfo.ACTION_CLICK);
             }

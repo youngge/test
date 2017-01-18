@@ -53,12 +53,14 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private final static int CORE_CUSTOMVIEW = 5;
     private final static int CORE_ANIMATION = 6;
     private final static int CORE_PERMISSION = 7;
-    private final static int CORE_SPEECHDEMO = 8;
-    private final static int CORE_XUNFEI = 9;
-    private final static int CORE_XUNFEI02 = 10;
-    private final static int CORE_WIFI = 11;
-    private final static int CORE_CARDWIFI = 12;
-    private final static int CORE_SERVER = 13;
+    private final static int CORE_CAMERA = 8;
+    private final static int CORE_SPEECHDEMO = 9;
+    private final static int CORE_XUNFEI = 10;
+    private final static int CORE_XUNFEI02 = 11;
+    private final static int CORE_XUNFEI03 = 12;
+    private final static int CORE_WIFI = 13;
+    private final static int CORE_CARDWIFI = 14;
+    private final static int CORE_SERVER = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,12 +149,20 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                         intent.setClass(MainActivity.this, PermissionActivity.class);
                         startActivity(intent);
                         break;
+                    case CORE_CAMERA:
+                        intent.setClass(MainActivity.this, SocketCameraActivity.class);
+                        startActivity(intent);
+                        break;
                     case CORE_XUNFEI:
                         intent.setClass(MainActivity.this, XunfeiActivity.class);
                         startActivity(intent);
                         break;
                     case CORE_XUNFEI02:
                         intent.setClass(MainActivity.this, XFSpeechActivity.class);
+                        startActivity(intent);
+                        break;
+                    case CORE_XUNFEI03:
+                        intent.setClass(MainActivity.this, TextToSpeechActivity.class);
                         startActivity(intent);
                         break;
                     case CORE_WIFI:
@@ -206,9 +216,11 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add("自定义控件");
         dataList.add("动画");
         dataList.add("运行时权限");
+        dataList.add("监控");
         dataList.add("讯飞语音示例");
         dataList.add("讯飞语音识别(问答)");
         dataList.add("讯飞语音转文字");
+        dataList.add("讯飞文字转语音");
         dataList.add("wifi操作");
         dataList.add("wifi操作玩具车");
         dataList.add("读取本地服务器数据");

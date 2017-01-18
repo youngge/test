@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--连接网络权限，用于执行云端语音能力 -->
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -31,11 +31,13 @@
     <!--读取联系人权限，上传联系人需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
+    <!--android:persistent="true"  不容易被系统回收-->
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
@@ -73,6 +75,9 @@
         <activity
             android:name=".activity.XFSpeechActivity"
             android:label="讯飞语音转文字" />
+        <activity
+            android:name=".activity.TextToSpeechActivity"
+            android:label="讯飞文字转语音" />
         <activity
             android:name=".activity.WifiActivity"
             android:label="wifi操作" />
@@ -134,6 +139,8 @@
             android:label="动画" />
         <activity android:name=".activity.PermissionActivity"
             android:label="运行时权限"/>
+        <activity android:name=".activity.SocketCameraActivity"
+            android:label="监控"/>
     </application>
 
 </manifest>
