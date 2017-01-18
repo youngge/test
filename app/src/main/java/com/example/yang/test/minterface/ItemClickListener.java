@@ -7,4 +7,5 @@ package com.example.yang.test.minterface;
 public interface ItemClickListener {
 
     void onItemClick(int position);
+    void onLongClick(int position);
 }

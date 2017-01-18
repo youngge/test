@@ -7,15 +7,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.yang.test.R;
 import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.util.LogUtils;
 import com.example.yang.test.util.XunfeiUtil;
-import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.sunflower.FlowerCollector;
 import com.lidroid.xutils.ViewUtils;
@@ -40,7 +36,7 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_speech);
+        setContentView(R.layout.activity_xfspeech);
         ViewUtils.inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -18,8 +18,10 @@ import android.view.View;
 
 import com.example.yang.test.R;
 import com.example.yang.test.activity.xunfei.SpeechActivity;
+import com.example.yang.test.adapter.ConversationAdapter;
 import com.example.yang.test.adapter.HomeAdapter;
 import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.bean.ConversationBean;
 import com.example.yang.test.minterface.ItemClickListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
@@ -56,11 +58,12 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private final static int CORE_CAMERA = 8;
     private final static int CORE_SPEECHDEMO = 9;
     private final static int CORE_XUNFEI = 10;
-    private final static int CORE_XUNFEI02 = 11;
-    private final static int CORE_XUNFEI03 = 12;
-    private final static int CORE_WIFI = 13;
-    private final static int CORE_CARDWIFI = 14;
-    private final static int CORE_SERVER = 15;
+    private final static int CORE_XUNFEI_LIST = 11;
+    private final static int CORE_XUNFEI02 = 12;
+    private final static int CORE_XUNFEI03 = 13;
+    private final static int CORE_WIFI = 14;
+    private final static int CORE_CARDWIFI = 15;
+    private final static int CORE_SERVER = 16;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +156,16 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                         intent.setClass(MainActivity.this, SocketCameraActivity.class);
                         startActivity(intent);
                         break;
+                    case CORE_SPEECHDEMO:
+                        intent.setClass(MainActivity.this, SpeechActivity.class);
+                        startActivity(intent);
+                        break;
                     case CORE_XUNFEI:
                         intent.setClass(MainActivity.this, XunfeiActivity.class);
+                        startActivity(intent);
+                        break;
+                    case CORE_XUNFEI_LIST:
+                        intent.setClass(MainActivity.this, XunfeiListActivity.class);
                         startActivity(intent);
                         break;
                     case CORE_XUNFEI02:
@@ -173,14 +184,16 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                         intent.setClass(MainActivity.this, CarWifiActivity.class);
                         startActivity(intent);
                         break;
-                    case CORE_SPEECHDEMO:
-                        intent.setClass(MainActivity.this, SpeechActivity.class);
-                        startActivity(intent);
                     case CORE_SERVER:
                         intent.setClass(MainActivity.this, ServerActivity.class);
                         startActivity(intent);
                         break;
                 }
+            }
+
+            @Override
+            public void onLongClick(int position) {
+
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -219,6 +232,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add("监控");
         dataList.add("讯飞语音示例");
         dataList.add("讯飞语音识别(问答)");
+        dataList.add("讯飞问答");
         dataList.add("讯飞语音转文字");
         dataList.add("讯飞文字转语音");
         dataList.add("wifi操作");

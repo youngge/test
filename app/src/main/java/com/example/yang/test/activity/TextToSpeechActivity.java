@@ -30,7 +30,7 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
     @ViewInject(R.id.et_content)
     private EditText et_content;
 
-    private static final String TAG = "TextToSpeechActivity";
+    private String changeText="";
 
     //合成监听器
     private SynthesizerListener mSynListener = new SynthesizerListener() {
@@ -90,7 +90,6 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
 
         btn_start.setOnClickListener(this);
 
-        initIflytek();
     }
 
 
@@ -111,7 +110,7 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
         mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
         //设置合成音调
         mTts.setParameter(SpeechConstant.PITCH, "50");
-        mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
+        mTts.setParameter(SpeechConstant.VOLUME, "30");//设置音量，范围0~100
         mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
         // 设置播放合成音频打断音乐播放，默认为true
         mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
@@ -122,7 +121,7 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
 //        boolean isSuccess = mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts2.wav");
 //        Toast.makeText(MainActivity.this, "语音合成 保存音频到本地：\n" + isSuccess, Toast.LENGTH_LONG).show();
         //3.开始合成
-        int code = mTts.startSpeaking("在这里放置需要进行合成的文本", mSynListener);
+        int code = mTts.startSpeaking(changeText, mSynListener);
 
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -149,6 +148,10 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
+                if (!et_content.getText().toString().trim().equals("")){
+                    changeText = et_content.getText().toString();
+                }
+                initIflytek();
                 break;
         }
     }

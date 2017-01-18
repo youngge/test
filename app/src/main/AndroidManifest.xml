@@ -73,6 +73,9 @@
             android:name=".activity.XunfeiActivity"
             android:label="讯飞语音识别(问答)" />
         <activity
+            android:name=".activity.XunfeiListActivity"
+            android:label="讯飞问答" />
+        <activity
             android:name=".activity.XFSpeechActivity"
             android:label="讯飞语音转文字" />
         <activity
