@@ -4,24 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.util.LogUtils;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import static android.R.attr.x;
-import static android.R.attr.y;
 
 public class RussianSquareActivity extends BaseActivity {
 

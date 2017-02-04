@@ -7,7 +7,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +14,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.util.DateUtils;
 import com.example.yang.test.view.MusicPlayView;
 import com.lidroid.xutils.ViewUtils;

@@ -1,7 +1,6 @@
 package com.example.yang.test.activity;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.bean.UserBean;
 import com.example.yang.test.net.IRequestCallback;
 import com.example.yang.test.net.IRequestManager;
@@ -59,10 +58,13 @@ public class ServerActivity extends BaseActivity {
 
                 String url = "";
                 if (et_content.getText().toString().equals("")) {
-                    url = "http://192.168.1.142:2323/index.html";
-//                    url = "http://www.campus100.cn/App/Home/Apineed/needlist";
+//                    url = "http://192.168.1.108:2323/index.html";
+//                    url = "http://h165169u85.iok.la:18622/index.html";
+                    url = "http://www.cjlgo.top:10190/index.html";
                 } else {
-                    url = "http://192.168.1.142:1478/" + et_content.getText().toString();
+//                    url = "http://192.168.1.108:1478/" + et_content.getText().toString();
+//                    url = "http://h165169u85.iok.la:18622/" + et_content.getText().toString();
+                    url = "http://www.cjlgo.top:10190/" + et_content.getText().toString();
                 }
                 getdata(url);
             }
@@ -91,10 +93,12 @@ public class ServerActivity extends BaseActivity {
                 StringBuilder builder = new StringBuilder();
                 Gson gson = new Gson();
                 UserBean userBean = gson.fromJson(response, UserBean.class);
-                List<UserBean.ResultBean> result = userBean.getResult();
-                for (UserBean.ResultBean mResult : result){
-                    builder.append(mResult.toString());
-                    builder.append("\n");
+                if (userBean!=null) {
+                    List<UserBean.ResultBean> result = userBean.getResult();
+                    for (UserBean.ResultBean mResult : result){
+                        builder.append(mResult.toString());
+                        builder.append("\n");
+                    }
                 }
                 tv_speed.setText(builder.toString());
             }

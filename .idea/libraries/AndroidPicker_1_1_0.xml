@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="AndroidPicker-1.1.0">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.qqtheme.framework/AndroidPicker/1.1.0/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.qqtheme.framework/AndroidPicker/1.1.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/cn.qqtheme.framework/AndroidPicker/1.1.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.qqtheme.framework/AndroidPicker/1.1.0/6e9372f0620c6c2703a79a7ed1b44bc0ed3215fe/AndroidPicker-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

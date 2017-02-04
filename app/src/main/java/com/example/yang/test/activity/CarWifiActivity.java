@@ -1,6 +1,5 @@
 package com.example.yang.test.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;

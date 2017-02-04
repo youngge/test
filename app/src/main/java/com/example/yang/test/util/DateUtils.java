@@ -4,8 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.TextView;
 
-import com.example.yang.test.application.MyApplication;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -188,7 +186,6 @@ public class DateUtils {
      * @return
      */
     public static String getTimeStringDisplay(String getDateString) {
-        final Context context = MyApplication.getInstance();
         Date getDate = null;
         try {
             getDate = getFormat(DATE_FORMAT_6).parse(getDateString);
@@ -247,7 +244,6 @@ public class DateUtils {
     }
 
     public static String getTimeDisplay(String getDateString, boolean timeZone) {
-        final Context context = MyApplication.getInstance();
         Date getDate = null;
         try {
             if (getDateString.contains("T")) {
@@ -1044,23 +1040,24 @@ public class DateUtils {
 
     /**
      * 返回分钟数
+     *
      * @param number 时间秒
      * @return 如05:25
      */
-    public static String number2minute(long number){
-        if (number<0||number>60*60){
+    public static String number2minute(long number) {
+        if (number < 0 || number > 60 * 60) {
             return "";
         }
         StringBuffer buffer = new StringBuffer();
-        if (number/60<10){
-            buffer.append("0"+number/60);
-        }else{
-            buffer.append(number/60);
+        if (number / 60 < 10) {
+            buffer.append("0" + number / 60);
+        } else {
+            buffer.append(number / 60);
         }
-        if (number%60<10){
-            buffer.append(":0"+number%60);
-        }else{
-            buffer.append(":"+number%60);
+        if (number % 60 < 10) {
+            buffer.append(":0" + number % 60);
+        } else {
+            buffer.append(":" + number % 60);
         }
         return buffer.toString();
     }

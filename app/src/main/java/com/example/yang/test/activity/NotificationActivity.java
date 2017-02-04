@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 

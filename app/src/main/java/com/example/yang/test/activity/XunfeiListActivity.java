@@ -1,7 +1,6 @@
 package com.example.yang.test.activity;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +9,11 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.ConversationAdapter;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.bean.ConversationBean;
 import com.example.yang.test.minterface.ItemClickListener;
 import com.example.yang.test.util.DBManager;
@@ -38,9 +36,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 讯飞问答列表
@@ -145,7 +141,6 @@ public class XunfeiListActivity extends BaseActivity implements View.OnClickList
 
         //暂停播放
         public void onSpeakPaused() {
-            ToastUtil.showToast(XunfeiListActivity.this, "暂停播放");
         }
 
         //播放进度回调
@@ -157,7 +152,7 @@ public class XunfeiListActivity extends BaseActivity implements View.OnClickList
         //会话结束回调接口，没有错误时，speechError为null
         @Override
         public void onCompleted(SpeechError speechError) {
-            ToastUtil.showToast(XunfeiListActivity.this, "会话结束");
+            ToastUtil.showToast(XunfeiListActivity.this, "播放结束");
         }
 
         //恢复播放回调接口

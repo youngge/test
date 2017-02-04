@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.minterface.IPermissionListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;

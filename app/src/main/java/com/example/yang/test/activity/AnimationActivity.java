@@ -1,9 +1,6 @@
 package com.example.yang.test.activity;
 
-import android.Manifest;
 import android.animation.ObjectAnimator;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,8 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.minterface.IPermissionListener;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">测试young</string>
-    <string name="label">微信自动抢红包</string>
-    <string name="description">由于微信每个版本都会出现不同的id，我们必须更改寻找控件的id实现点击事件</string>
+
+    <string name="error_configuration">请首先配置您的串行端口.</string>
+    <string name="error_security">您没有串行端口的读/写权限.</string>
+    <string name="error_unknown">由于未知原因，无法打开串行端口.</string>
 </resources>

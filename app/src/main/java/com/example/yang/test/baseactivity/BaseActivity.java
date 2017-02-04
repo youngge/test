@@ -1,4 +1,4 @@
-package com.example.yang.test.application;
+package com.example.yang.test.baseactivity;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.yang.test.minterface.IPermissionListener;
-import com.example.yang.test.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
         }
         if (mList.isEmpty()) {
             iPermissionListener.granted();
-            ToastUtil.showToast(this,"mList.isEmpty()");
             return;
         }
         ActivityCompat.requestPermissions(this, mList.toArray(new String[mList.size()]), 1);

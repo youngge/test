@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.view.ZhifuView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;

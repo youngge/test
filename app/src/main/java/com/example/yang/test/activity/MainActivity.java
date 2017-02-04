@@ -18,10 +18,9 @@ import android.view.View;
 
 import com.example.yang.test.R;
 import com.example.yang.test.activity.xunfei.SpeechActivity;
-import com.example.yang.test.adapter.ConversationAdapter;
 import com.example.yang.test.adapter.HomeAdapter;
-import com.example.yang.test.application.BaseActivity;
-import com.example.yang.test.bean.ConversationBean;
+import com.example.yang.test.android_serialport_api.ConsoleActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.minterface.ItemClickListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
@@ -47,23 +46,23 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private List<String> dataList = new ArrayList<>();
     private HomeAdapter mRecyclerAdapter;
 
-    private final static int CORE_ZHIMAFEN = 0;
-    private final static int CORE_MUSIC = 1;
-    private final static int CORE_NOTIFICATION = 2;
-    private final static int CORE_GAME = 3;
-    private final static int CORE_RUSSIANSQUARE = 4;
-    private final static int CORE_CUSTOMVIEW = 5;
-    private final static int CORE_ANIMATION = 6;
-    private final static int CORE_PERMISSION = 7;
-    private final static int CORE_CAMERA = 8;
-    private final static int CORE_SPEECHDEMO = 9;
-    private final static int CORE_XUNFEI = 10;
-    private final static int CORE_XUNFEI_LIST = 11;
-    private final static int CORE_XUNFEI02 = 12;
-    private final static int CORE_XUNFEI03 = 13;
-    private final static int CORE_WIFI = 14;
-    private final static int CORE_CARDWIFI = 15;
-    private final static int CORE_SERVER = 16;
+    private final static String TEXT_ZHIMAFEN = "芝麻分";
+    private final static String TEXT_MUSIC = "播放器";
+    private final static String TEXT_NOTIFICATION = "通知";
+    private final static String TEXT_GAME = "2048小游戏";
+    private final static String TEXT_RUSSIANSQUARE = "俄罗斯方块";
+    private final static String TEXT_CUSTOMVIEW = "自定义控件";
+    private final static String TEXT_ANIMATION = "动画";
+    private final static String TEXT_PERMISSION = "运行时权限";
+    private final static String TEXT_CAMERA = "监控";
+    private final static String TEXT_SPEECHDEMO = "讯飞语音示例";
+    private final static String TEXT_XUNFEI = "讯飞语音识别(问答)";
+    private final static String TEXT_XUNFEI_LIST = "讯飞问答";
+    private final static String TEXT_SPEECHTOTEXT = "讯飞语音转文字";
+    private final static String TEXT_TEXTTOSPEECH = "讯飞文字转语音";
+    private final static String TEXT_WIFI = "wifi操作";
+    private final static String TEXT_CARDWIFI = "wifi操作玩具车";
+    private final static String TEXT_SERVER = "读取本地服务器数据";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,75 +118,60 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent();
-                switch (position) {
-                    case CORE_ZHIMAFEN:
-                        intent.setClass(MainActivity.this, ZhimafenActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_MUSIC:
-                        intent.setClass(MainActivity.this, MusicActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_NOTIFICATION:
-                        intent.setClass(MainActivity.this, NotificationActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_GAME:
-                        intent.setClass(MainActivity.this, GameActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_RUSSIANSQUARE:
-                        intent.setClass(MainActivity.this, RussianSquareActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_CUSTOMVIEW:
-                        intent.setClass(MainActivity.this, CustomViewActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_ANIMATION:
-                        intent.setClass(MainActivity.this, AnimationActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_PERMISSION:
-                        intent.setClass(MainActivity.this, PermissionActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_CAMERA:
-                        intent.setClass(MainActivity.this, SocketCameraActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_SPEECHDEMO:
-                        intent.setClass(MainActivity.this, SpeechActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_XUNFEI:
-                        intent.setClass(MainActivity.this, XunfeiActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_XUNFEI_LIST:
-                        intent.setClass(MainActivity.this, XunfeiListActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_XUNFEI02:
-                        intent.setClass(MainActivity.this, XFSpeechActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_XUNFEI03:
-                        intent.setClass(MainActivity.this, TextToSpeechActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_WIFI:
-                        intent.setClass(MainActivity.this, WifiActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_CARDWIFI:
-                        intent.setClass(MainActivity.this, CarWifiActivity.class);
-                        startActivity(intent);
-                        break;
-                    case CORE_SERVER:
-                        intent.setClass(MainActivity.this, ServerActivity.class);
-                        startActivity(intent);
-                        break;
+                String mtext = dataList.get(position);
+                if (mtext.equals(TEXT_ZHIMAFEN)){//芝麻分
+                    intent.setClass(MainActivity.this, ZhimafenActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_MUSIC)){//音乐播放器
+                    intent.setClass(MainActivity.this, MusicActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_NOTIFICATION)){//通知
+                    intent.setClass(MainActivity.this, NotificationActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_GAME)){//2048游戏
+                    intent.setClass(MainActivity.this, GameActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_RUSSIANSQUARE)){//俄罗斯方块
+                    intent.setClass(MainActivity.this, RussianSquareActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_CUSTOMVIEW)){//自定义控件
+                    intent.setClass(MainActivity.this, CustomViewActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_ANIMATION)){//动画
+                    intent.setClass(MainActivity.this, AnimationActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_PERMISSION)){//运行时权限
+                    intent.setClass(MainActivity.this, PermissionActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_CAMERA)){//监控
+                    intent.setClass(MainActivity.this, SocketCameraActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_SPEECHDEMO)){//讯飞语音示例
+                    intent.setClass(MainActivity.this, SpeechActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_XUNFEI)){//讯飞语音识别(问答)
+                    intent.setClass(MainActivity.this, XunfeiActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_XUNFEI_LIST)){//讯飞问答
+                    intent.setClass(MainActivity.this, XunfeiListActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_SPEECHTOTEXT)){//讯飞语音转文字
+                    intent.setClass(MainActivity.this, SpeechToTextActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_TEXTTOSPEECH)){//讯飞文字转语音
+                    intent.setClass(MainActivity.this, TextToSpeechActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_WIFI)){//wifi操作
+//                    intent.setClass(MainActivity.this, WifiActivity.class);
+//                    startActivity(intent);
+                    intent.setClass(MainActivity.this, ConsoleActivity.class);
+                    startActivity(intent);
+                }else if (mtext.equals(TEXT_CARDWIFI)){//wifi操作玩具车
+//                    intent.setClass(MainActivity.this, CarWifiActivity.class);
+//                    startActivity(intent);
+                }else if (mtext.equals(TEXT_SERVER)){//读取本地服务器数据
+                    intent.setClass(MainActivity.this, ServerActivity.class);
+                    startActivity(intent);
                 }
             }
 
@@ -221,23 +205,23 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     private void initData() {
         dataList.clear();
-        dataList.add("芝麻分");
-        dataList.add("播放器");
-        dataList.add("通知");
-        dataList.add("2048小游戏");
-        dataList.add("俄罗斯方块");
-        dataList.add("自定义控件");
-        dataList.add("动画");
-        dataList.add("运行时权限");
-        dataList.add("监控");
-        dataList.add("讯飞语音示例");
-        dataList.add("讯飞语音识别(问答)");
-        dataList.add("讯飞问答");
-        dataList.add("讯飞语音转文字");
-        dataList.add("讯飞文字转语音");
-        dataList.add("wifi操作");
-        dataList.add("wifi操作玩具车");
-        dataList.add("读取本地服务器数据");
+        dataList.add(TEXT_ZHIMAFEN);
+        dataList.add(TEXT_MUSIC);
+        dataList.add(TEXT_NOTIFICATION);
+        dataList.add(TEXT_GAME);
+//        dataList.add(TEXT_RUSSIANSQUARE);
+        dataList.add(TEXT_CUSTOMVIEW);
+        dataList.add(TEXT_ANIMATION);
+        dataList.add(TEXT_PERMISSION);
+        dataList.add(TEXT_CAMERA);
+        dataList.add(TEXT_SPEECHDEMO);
+        dataList.add(TEXT_XUNFEI);
+        dataList.add(TEXT_XUNFEI_LIST);
+        dataList.add(TEXT_SPEECHTOTEXT);
+        dataList.add(TEXT_TEXTTOSPEECH);
+        dataList.add(TEXT_WIFI);
+//        dataList.add(TEXT_CARDWIFI);
+        dataList.add(TEXT_SERVER);
         dataList.add("空");
         dataList.add("空");
     }

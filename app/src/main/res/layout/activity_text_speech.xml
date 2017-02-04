@@ -23,4 +23,10 @@
         android:layout_height="48dp" />
 
 
+    <Button
+        android:id="@+id/btn_choose"
+        android:layout_margin="12dp"
+        android:layout_width="match_parent"
+        android:text="选择文件"
+        android:layout_height="48dp" />
 </LinearLayout>

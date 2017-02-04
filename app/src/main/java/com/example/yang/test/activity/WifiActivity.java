@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.thread.WifiClientThread;
 import com.example.yang.test.util.ToastUtil;
 import com.example.yang.test.util.WifiManageUtils;

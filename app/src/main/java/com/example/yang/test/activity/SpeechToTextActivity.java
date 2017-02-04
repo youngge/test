@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.util.XunfeiUtil;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
@@ -20,7 +20,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 /**
  * 语音转文字
  */
-public class XFSpeechActivity extends BaseActivity implements View.OnClickListener {
+public class SpeechToTextActivity extends BaseActivity implements View.OnClickListener {
 
     @ViewInject(R.id.btn_start)
     private Button btn_start;
@@ -36,7 +36,7 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xfspeech);
+        setContentView(R.layout.activity_speech_text);
         ViewUtils.inject(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,7 +53,7 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
 
 
     private void initIflytek() {
-        mXunfeiUtil = new XunfeiUtil(XFSpeechActivity.this, mEngineType);//这就是我的语音转换初始化和事件的封装类
+        mXunfeiUtil = new XunfeiUtil(SpeechToTextActivity.this, mEngineType);//这就是我的语音转换初始化和事件的封装类
         sRecognizer = mXunfeiUtil.initIflytek();//语音识别器,OnDestroy(),和OnResume()事件中需要用到
     }
 
@@ -80,16 +80,16 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         // 退出时释放连接
         sRecognizer.cancel();
         sRecognizer.destroy();
+        super.onDestroy();
     }
 
     @Override
     protected void onResume() {
         // 开放统计 移动数据统计分析
-        FlowerCollector.onResume(XFSpeechActivity.this);
+        FlowerCollector.onResume(SpeechToTextActivity.this);
         FlowerCollector.onPageStart(TAG);
         super.onResume();
     }
@@ -98,7 +98,7 @@ public class XFSpeechActivity extends BaseActivity implements View.OnClickListen
     protected void onPause() {
         // 开放统计 移动数据统计分析
         FlowerCollector.onPageEnd(TAG);
-        FlowerCollector.onPause(XFSpeechActivity.this);
+        FlowerCollector.onPause(SpeechToTextActivity.this);
         super.onPause();
     }
 }

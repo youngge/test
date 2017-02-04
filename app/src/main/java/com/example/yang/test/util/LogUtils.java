@@ -9,8 +9,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 /**
- * Created by HJianFei on 2016/10/14.
- * <p>
  * Description: 日志工具类：开发过程中，日志输出
  */
 

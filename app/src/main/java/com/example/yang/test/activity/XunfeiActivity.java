@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.util.LogUtils;
 import com.example.yang.test.view.ClearEditText;
 import com.iflytek.cloud.ErrorCode;

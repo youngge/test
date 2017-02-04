@@ -1,5 +1,6 @@
 package com.example.yang.test.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -10,15 +11,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.yang.test.R;
-import com.example.yang.test.application.BaseActivity;
+import com.example.yang.test.baseactivity.BaseActivity;
+import com.example.yang.test.minterface.IPermissionListener;
+import com.example.yang.test.speech.SpeechManager;
+import com.example.yang.test.util.IOUtilsY;
 import com.example.yang.test.util.ToastUtil;
 import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+
+import cn.qqtheme.framework.picker.FilePicker;
 
 /**
  * 文字转语音
@@ -27,10 +32,12 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
 
     @ViewInject(R.id.btn_start)
     private Button btn_start;
+    @ViewInject(R.id.btn_choose)
+    private Button btn_choose;
     @ViewInject(R.id.et_content)
     private EditText et_content;
 
-    private String changeText="";
+    private SpeechSynthesizer mTts;
 
     //合成监听器
     private SynthesizerListener mSynListener = new SynthesizerListener() {
@@ -48,7 +55,6 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
 
         //暂停播放
         public void onSpeakPaused() {
-            ToastUtil.showToast(TextToSpeechActivity.this, "暂停播放");
         }
 
         //播放进度回调
@@ -60,7 +66,7 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
         //会话结束回调接口，没有错误时，speechError为null
         @Override
         public void onCompleted(SpeechError speechError) {
-            ToastUtil.showToast(TextToSpeechActivity.this, "会话结束");
+            ToastUtil.showToast(TextToSpeechActivity.this, "播放结束");
         }
 
         //恢复播放回调接口
@@ -88,40 +94,16 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        btn_start.setOnClickListener(this);
+        mTts = SpeechManager.getSpeechSynthesizer(this);
 
+        btn_start.setOnClickListener(this);
+        btn_choose.setOnClickListener(this);
     }
 
 
-    private void initIflytek() {
-        //1.创建SpeechSynthesizer对象, 第二个参数：本地合成时传InitListener
-        SpeechSynthesizer mTts = SpeechSynthesizer.createSynthesizer(TextToSpeechActivity.this, null);
-
-        /**
-         2.合成参数设置，详见《科大讯飞MSC API手册(Android)》SpeechSynthesizer 类
-         *
-         */
-
-        // 清空参数
-        mTts.setParameter(SpeechConstant.PARAMS, null);
-
-        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
-        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");//设置发音人
-        mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
-        //设置合成音调
-        mTts.setParameter(SpeechConstant.PITCH, "50");
-        mTts.setParameter(SpeechConstant.VOLUME, "30");//设置音量，范围0~100
-        mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
-        // 设置播放合成音频打断音乐播放，默认为true
-        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
-
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-//        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-//        boolean isSuccess = mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts2.wav");
-//        Toast.makeText(MainActivity.this, "语音合成 保存音频到本地：\n" + isSuccess, Toast.LENGTH_LONG).show();
+    private void startSpeak(String text) {
         //3.开始合成
-        int code = mTts.startSpeaking(changeText, mSynListener);
+        int code = mTts.startSpeaking(text, mSynListener);
 
         if (code != ErrorCode.SUCCESS) {
             if (code == ErrorCode.ERROR_COMPONENT_NOT_INSTALLED) {
@@ -148,12 +130,53 @@ public class TextToSpeechActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
-                if (!et_content.getText().toString().trim().equals("")){
-                    changeText = et_content.getText().toString();
+                if (!et_content.getText().toString().trim().equals("")) {
+                    startSpeak(et_content.getText().toString());
                 }
-                initIflytek();
+                break;
+            case R.id.btn_choose:
+                showFileChooser();
                 break;
         }
     }
 
+    private void showFileChooser() {
+        String[] per = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+        mRequestPermissions(per, new IPermissionListener() {
+            @Override
+            public void granted() {
+                try {
+                    FilePicker picker = new FilePicker(TextToSpeechActivity.this, FilePicker.FILE);
+                    picker.setShowHideDir(false);
+                    picker.setTitleText("请选择文本文件");
+//                    picker.setRootPath(StorageUtils.getRootPath(this) + "Download/");
+//                    picker.setAllowExtensions(new String[]{".apk"});
+                    picker.setOnFilePickListener(new FilePicker.OnFilePickListener() {
+                        @Override
+                        public void onFilePicked(String currentPath) {
+                            String read = IOUtilsY.read(currentPath);
+                            startSpeak(read);
+                        }
+                    });
+                    picker.show();
+                } catch (SecurityException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void denied() {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mTts.stopSpeaking();
+        mTts.destroy();
+        super.onDestroy();
+    }
 }
