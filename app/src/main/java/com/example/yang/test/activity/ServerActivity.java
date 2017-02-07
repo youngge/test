@@ -3,6 +3,8 @@ package com.example.yang.test.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.yang.test.R;
+import com.example.yang.test.adapter.common.BaseRecyclerAdapter;
+import com.example.yang.test.adapter.common.BaseRecyclerHolder;
 import com.example.yang.test.baseactivity.BaseActivity;
 import com.example.yang.test.bean.UserBean;
 import com.example.yang.test.net.IRequestCallback;
@@ -20,27 +24,36 @@ import com.example.yang.test.net.IRequestManager;
 import com.example.yang.test.net.RequestFactory;
 import com.example.yang.test.util.LogUtils;
 import com.google.gson.Gson;
-import com.lidroid.xutils.ViewUtils;
-import com.lidroid.xutils.view.annotation.ViewInject;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class ServerActivity extends BaseActivity {
 
-    @ViewInject(R.id.tv_speed)
-    private TextView tv_speed;
-    @ViewInject(R.id.et_content)
-    private EditText et_content;
-    @ViewInject(R.id.btn_click)
-    private Button btn_click;
-    @ViewInject(R.id.image)
-    private ImageView image;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.et_content)
+    EditText etContent;
+    @BindView(R.id.btn_click)
+    Button btnClick;
+    @BindView(R.id.image)
+    ImageView image;
+    @BindView(R.id.tv_speed)
+    TextView tvSpeed;
+    @BindView(R.id.mRecyclerView)
+    RecyclerView mRecyclerView;
+
+    private UserBean userBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server);
-        ViewUtils.inject(this);
+        ButterKnife.bind(this);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,24 +62,25 @@ public class ServerActivity extends BaseActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        btn_click.setOnClickListener(new View.OnClickListener() {
+        btnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InputMethodManager imm =
                         (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(et_content.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etContent.getWindowToken(), 0);
 
                 String url = "";
-                if (et_content.getText().toString().equals("")) {
+                if (etContent.getText().toString().equals("")) {
 //                    url = "http://192.168.1.108:2323/index.html";
 //                    url = "http://h165169u85.iok.la:18622/index.html";
                     url = "http://www.cjlgo.top:10190/index.html";
                 } else {
 //                    url = "http://192.168.1.108:1478/" + et_content.getText().toString();
 //                    url = "http://h165169u85.iok.la:18622/" + et_content.getText().toString();
-                    url = "http://www.cjlgo.top:10190/" + et_content.getText().toString();
+                    url = "http://www.cjlgo.top:10190/" + etContent.getText().toString();
                 }
                 getdata(url);
+
             }
         });
 
@@ -89,27 +103,53 @@ public class ServerActivity extends BaseActivity {
         requestManager.get(url, new IRequestCallback() {
             @Override
             public void onSuccess(String response) {
-                LogUtils.d("mtest", "onSuccess--"+response);
+                LogUtils.d("mtest", "onSuccess--" + response);
                 StringBuilder builder = new StringBuilder();
                 Gson gson = new Gson();
-                UserBean userBean = gson.fromJson(response, UserBean.class);
-                if (userBean!=null) {
+                userBean = gson.fromJson(response, UserBean.class);
+                if (userBean != null) {
                     List<UserBean.ResultBean> result = userBean.getResult();
-                    for (UserBean.ResultBean mResult : result){
+                    for (UserBean.ResultBean mResult : result) {
                         builder.append(mResult.toString());
                         builder.append("\n");
                     }
                 }
-                tv_speed.setText(builder.toString());
+//                tvSpeed.setText(builder.toString());
+                initList();
+
             }
 
             @Override
             public void onFailure(Throwable throwable) {
                 throwable.printStackTrace();
                 LogUtils.d("mtest", "onFailure--" + throwable.toString());
-                tv_speed.setText(throwable.toString());
+                tvSpeed.setText(throwable.toString());
             }
         });
     }
+
+    private void initList() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false));
+
+        mRecyclerView.setAdapter(new BaseRecyclerAdapter<UserBean.ResultBean>(this,
+                userBean.getResult(), R.layout.item_server) {
+            @Override
+            public void convert(BaseRecyclerHolder holder, UserBean.ResultBean item,
+                                int position, boolean isScrolling) {
+                holder.setText(R.id.tv_id, item.get_id());
+                holder.setText(R.id.tv_name, item.getName());
+                holder.setText(R.id.tv_sex, item.getSex());
+                holder.setText(R.id.tv_age, item.getAge());
+                holder.setText(R.id.tv_phone, item.getPhone());
+                holder.setText(R.id.tv_job, item.getJob());
+                holder.setText(R.id.tv_address, item.getAddress());
+                holder.setText(R.id.tv_school, item.getSchool());
+            }
+
+        });
+
+    }
+
 
 }

@@ -18,10 +18,10 @@ import android.view.View;
 
 import com.example.yang.test.R;
 import com.example.yang.test.activity.xunfei.SpeechActivity;
-import com.example.yang.test.adapter.HomeAdapter;
+import com.example.yang.test.adapter.common.BaseRecyclerAdapter;
+import com.example.yang.test.adapter.common.BaseRecyclerHolder;
 import com.example.yang.test.android_serialport_api.ConsoleActivity;
 import com.example.yang.test.baseactivity.BaseActivity;
-import com.example.yang.test.minterface.ItemClickListener;
 import com.example.yang.test.util.ToastUtil;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private FloatingActionButton mFab;
 
     private List<String> dataList = new ArrayList<>();
-    private HomeAdapter mRecyclerAdapter;
+    private BaseRecyclerAdapter mRecyclerAdapter;
 
     private final static String TEXT_ZHIMAFEN = "芝麻分";
     private final static String TEXT_MUSIC = "播放器";
@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private final static String TEXT_WIFI = "wifi操作";
     private final static String TEXT_CARDWIFI = "wifi操作玩具车";
     private final static String TEXT_SERVER = "读取本地服务器数据";
+    private final static String TEXT_BLUETOOTH = "蓝牙读取连接";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,73 +114,89 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
         initData();
 
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerAdapter = new HomeAdapter(dataList, new ItemClickListener() {
+        mRecyclerAdapter = new BaseRecyclerAdapter<String>(this, dataList, R.layout.item_home) {
             @Override
-            public void onItemClick(int position) {
+            public void convert(BaseRecyclerHolder holder, String item, int position, boolean isScrolling) {
+                holder.setText(R.id.tv, item);
+            }
+        };
+
+        mRecyclerAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView parent, View view, int position) {
                 Intent intent = new Intent();
                 String mtext = dataList.get(position);
-                if (mtext.equals(TEXT_ZHIMAFEN)){//芝麻分
+                if (mtext.equals(TEXT_ZHIMAFEN)) {//芝麻分
                     intent.setClass(MainActivity.this, ZhimafenActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_MUSIC)){//音乐播放器
+                } else if (mtext.equals(TEXT_MUSIC)) {//音乐播放器
                     intent.setClass(MainActivity.this, MusicActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_NOTIFICATION)){//通知
+                } else if (mtext.equals(TEXT_NOTIFICATION)) {//通知
                     intent.setClass(MainActivity.this, NotificationActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_GAME)){//2048游戏
+                } else if (mtext.equals(TEXT_GAME)) {//2048游戏
                     intent.setClass(MainActivity.this, GameActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_RUSSIANSQUARE)){//俄罗斯方块
+                } else if (mtext.equals(TEXT_RUSSIANSQUARE)) {//俄罗斯方块
                     intent.setClass(MainActivity.this, RussianSquareActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_CUSTOMVIEW)){//自定义控件
+                } else if (mtext.equals(TEXT_CUSTOMVIEW)) {//自定义控件
                     intent.setClass(MainActivity.this, CustomViewActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_ANIMATION)){//动画
+                } else if (mtext.equals(TEXT_ANIMATION)) {//动画
                     intent.setClass(MainActivity.this, AnimationActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_PERMISSION)){//运行时权限
+                } else if (mtext.equals(TEXT_PERMISSION)) {//运行时权限
                     intent.setClass(MainActivity.this, PermissionActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_CAMERA)){//监控
+                } else if (mtext.equals(TEXT_CAMERA)) {//监控
                     intent.setClass(MainActivity.this, SocketCameraActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_SPEECHDEMO)){//讯飞语音示例
+                } else if (mtext.equals(TEXT_SPEECHDEMO)) {//讯飞语音示例
                     intent.setClass(MainActivity.this, SpeechActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_XUNFEI)){//讯飞语音识别(问答)
+                } else if (mtext.equals(TEXT_XUNFEI)) {//讯飞语音识别(问答)
                     intent.setClass(MainActivity.this, XunfeiActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_XUNFEI_LIST)){//讯飞问答
+                } else if (mtext.equals(TEXT_XUNFEI_LIST)) {//讯飞问答
                     intent.setClass(MainActivity.this, XunfeiListActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_SPEECHTOTEXT)){//讯飞语音转文字
+                } else if (mtext.equals(TEXT_SPEECHTOTEXT)) {//讯飞语音转文字
                     intent.setClass(MainActivity.this, SpeechToTextActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_TEXTTOSPEECH)){//讯飞文字转语音
+                } else if (mtext.equals(TEXT_TEXTTOSPEECH)) {//讯飞文字转语音
                     intent.setClass(MainActivity.this, TextToSpeechActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_WIFI)){//wifi操作
+                } else if (mtext.equals(TEXT_WIFI)) {//wifi操作
 //                    intent.setClass(MainActivity.this, WifiActivity.class);
 //                    startActivity(intent);
                     intent.setClass(MainActivity.this, ConsoleActivity.class);
                     startActivity(intent);
-                }else if (mtext.equals(TEXT_CARDWIFI)){//wifi操作玩具车
+                } else if (mtext.equals(TEXT_CARDWIFI)) {//wifi操作玩具车
 //                    intent.setClass(MainActivity.this, CarWifiActivity.class);
 //                    startActivity(intent);
-                }else if (mtext.equals(TEXT_SERVER)){//读取本地服务器数据
+                } else if (mtext.equals(TEXT_SERVER)) {//读取本地服务器数据
                     intent.setClass(MainActivity.this, ServerActivity.class);
+                    startActivity(intent);
+                } else if (mtext.equals(TEXT_BLUETOOTH)) {//蓝牙读取连接
+                    intent.setClass(MainActivity.this, BlueToothActivity.class);
                     startActivity(intent);
                 }
             }
+        });
 
+
+        mRecyclerAdapter.setOnItemLongClickListener(new BaseRecyclerAdapter.OnItemLongClickListener() {
             @Override
-            public void onLongClick(int position) {
-
+            public boolean onItemLongClick(RecyclerView parent, View view, int position) {
+                dataList.add(position, "--添加项--");
+                mRecyclerAdapter.notifyItemInserted(position);
+                return true;
             }
         });
+
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mRecyclerAdapter);
@@ -222,6 +239,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         dataList.add(TEXT_WIFI);
 //        dataList.add(TEXT_CARDWIFI);
         dataList.add(TEXT_SERVER);
+        dataList.add(TEXT_BLUETOOTH);
         dataList.add("空");
         dataList.add("空");
     }

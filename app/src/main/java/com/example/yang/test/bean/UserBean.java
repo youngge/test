@@ -36,6 +36,7 @@ public class UserBean {
         private String job;
         private String address;
         private String age;
+        private String school;
 
         public String get_id() {
             return _id;
@@ -91,6 +92,14 @@ public class UserBean {
 
         public void setAge(String age) {
             this.age = age;
+        }
+
+        public String getSchool() {
+            return school;
+        }
+
+        public void setSchool(String school) {
+            this.school = school;
         }
 
         @Override

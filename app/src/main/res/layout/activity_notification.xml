@@ -30,4 +30,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_04"/>
+    <Button
+        android:text="下载"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_download"/>
 </LinearLayout>

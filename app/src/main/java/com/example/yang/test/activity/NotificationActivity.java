@@ -16,8 +16,18 @@ import android.widget.Button;
 
 import com.example.yang.test.R;
 import com.example.yang.test.baseactivity.BaseActivity;
+import com.example.yang.test.util.LogUtils;
+import com.example.yang.test.util.ToastUtil;
+import com.example.yang.test.util.XunfeiUtil;
+import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.HttpHandler;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.view.annotation.ViewInject;
+
+import java.io.File;
 
 public class NotificationActivity extends BaseActivity implements View.OnClickListener {
 
@@ -29,6 +39,8 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     private Button button_03;
     @ViewInject(R.id.button_04)
     private Button button_04;
+    @ViewInject(R.id.button_download)
+    private Button button_download;
 
     private NotificationManager manager;
     private PendingIntent pIntent;
@@ -49,6 +61,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         button_02.setOnClickListener(this);
         button_03.setOnClickListener(this);
         button_04.setOnClickListener(this);
+        button_download.setOnClickListener(this);
 
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent intent = new Intent(this, MainActivity.class);
