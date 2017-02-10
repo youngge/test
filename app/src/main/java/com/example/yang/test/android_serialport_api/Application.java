@@ -59,8 +59,8 @@ public class Application extends android.app.Application {
             }
 
 			/* Open the serial port */
-            mSerialPort = new SerialPort(new File(path), baudrate, 0);
-//                mSerialPort = new SerialPort(new File("/dev/ttyS2"), 115200, 0);
+//            mSerialPort = new SerialPort(new File(path), baudrate, 0);
+                mSerialPort = new SerialPort(new File("/dev/ttyS2"), 115200, 0);
         }
         return mSerialPort;
     }

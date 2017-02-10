@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.common.BaseRecyclerAdapter;
 import com.example.yang.test.adapter.common.BaseRecyclerHolder;
@@ -23,8 +24,10 @@ import com.example.yang.test.net.IRequestCallback;
 import com.example.yang.test.net.IRequestManager;
 import com.example.yang.test.net.RequestFactory;
 import com.example.yang.test.util.LogUtils;
+import com.example.yang.test.util.ToastUtil;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,12 +75,12 @@ public class ServerActivity extends BaseActivity {
                 String url = "";
                 if (etContent.getText().toString().equals("")) {
 //                    url = "http://192.168.1.108:2323/index.html";
-//                    url = "http://h165169u85.iok.la:18622/index.html";
-                    url = "http://www.cjlgo.top:10190/index.html";
+                    url = "http://nc16237326.imwork.net:5858/cjl/user";
+//                    url = "http://www.cjlgo.top:10190/index.html";
                 } else {
-//                    url = "http://192.168.1.108:1478/" + et_content.getText().toString();
-//                    url = "http://h165169u85.iok.la:18622/" + et_content.getText().toString();
-                    url = "http://www.cjlgo.top:10190/" + etContent.getText().toString();
+//                    url = "http://192.168.1.108:1478/" + etContent.getText().toString();
+                    url = "http://nc16237326.imwork.net:5858/cjl/user?limit=" + etContent.getText().toString();
+//                    url = "http://www.cjlgo.top:10190/" + etContent.getText().toString();
                 }
                 getdata(url);
 
@@ -99,7 +102,7 @@ public class ServerActivity extends BaseActivity {
 
     private void getdata(String url) {
         //这里发起请求依赖的是IReqauestManager接口
-        IRequestManager requestManager = RequestFactory.getRequestManager();
+        final IRequestManager requestManager = RequestFactory.getRequestManager();
         requestManager.get(url, new IRequestCallback() {
             @Override
             public void onSuccess(String response) {
@@ -117,6 +120,11 @@ public class ServerActivity extends BaseActivity {
 //                tvSpeed.setText(builder.toString());
                 initList();
 
+                Glide.with(ServerActivity.this)
+                        .load("http://nc16237326.imwork.net:8080/yang/zhou.png")
+                        .asBitmap().into(image);
+                ToastUtil.showToast(ServerActivity.this, "over!");
+
             }
 
             @Override
@@ -124,9 +132,15 @@ public class ServerActivity extends BaseActivity {
                 throwable.printStackTrace();
                 LogUtils.d("mtest", "onFailure--" + throwable.toString());
                 tvSpeed.setText(throwable.toString());
+
+                Glide.with(ServerActivity.this)
+                        .load("http://nc16237326.imwork.net:8080/yang/zhou.png")
+                        .asBitmap().into(image);
+                ToastUtil.showToast(ServerActivity.this, "over!");
             }
         });
     }
+
 
     private void initList() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,

@@ -1,5 +1,6 @@
 package com.example.yang.test.activity;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -7,12 +8,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.example.yang.test.R;
 import com.example.yang.test.baseactivity.BaseActivity;
+import com.example.yang.test.util.LogUtils;
+import com.example.yang.test.util.ToastUtil;
+import com.example.yang.test.util.WakeupUtil;
 import com.example.yang.test.util.XunfeiUtil;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.util.ResourceUtil;
 import com.iflytek.sunflower.FlowerCollector;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
@@ -30,6 +36,8 @@ public class SpeechToTextActivity extends BaseActivity implements View.OnClickLi
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private SpeechRecognizer sRecognizer;
     private XunfeiUtil mXunfeiUtil;
+
+    private WakeupUtil wakeupUtil;
 
     private static final String TAG = "XFSpeechActivity";
 
@@ -49,6 +57,17 @@ public class SpeechToTextActivity extends BaseActivity implements View.OnClickLi
         btn_start.setOnClickListener(this);
 
         initIflytek();
+
+//        wakeupUtil = new WakeupUtil(this) {
+//            @Override
+//            public void kqwWake() {
+//                ToastUtil.showToast(SpeechToTextActivity.this, "唤醒成功");
+//                // 开启唤醒
+//                wakeupUtil.wake();
+//            }
+//        };
+//        wakeupUtil.wake();
+
     }
 
 
@@ -81,8 +100,10 @@ public class SpeechToTextActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onDestroy() {
         // 退出时释放连接
-        sRecognizer.cancel();
-        sRecognizer.destroy();
+        if (sRecognizer!=null) {
+            sRecognizer.cancel();
+            sRecognizer.destroy();
+        }
         super.onDestroy();
     }
 
@@ -101,4 +122,5 @@ public class SpeechToTextActivity extends BaseActivity implements View.OnClickLi
         FlowerCollector.onPause(SpeechToTextActivity.this);
         super.onPause();
     }
+
 }
