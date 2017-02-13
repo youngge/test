@@ -2,6 +2,8 @@ package com.example.yang.test.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.yang.test.R;
 import com.example.yang.test.adapter.common.BaseRecyclerAdapter;
 import com.example.yang.test.adapter.common.BaseRecyclerHolder;
@@ -24,10 +25,8 @@ import com.example.yang.test.net.IRequestCallback;
 import com.example.yang.test.net.IRequestManager;
 import com.example.yang.test.net.RequestFactory;
 import com.example.yang.test.util.LogUtils;
-import com.example.yang.test.util.ToastUtil;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,6 +50,18 @@ public class ServerActivity extends BaseActivity {
     RecyclerView mRecyclerView;
 
     private UserBean userBean;
+
+    private boolean isStop = false;
+
+    private BaseRecyclerAdapter adapter;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            getdata("http://nc16237326.imwork.net:5858/cjl/user");
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +93,7 @@ public class ServerActivity extends BaseActivity {
                     url = "http://nc16237326.imwork.net:5858/cjl/user?limit=" + etContent.getText().toString();
 //                    url = "http://www.cjlgo.top:10190/" + etContent.getText().toString();
                 }
-                getdata(url);
+//                getdata(url);
 
             }
         });
@@ -118,52 +129,72 @@ public class ServerActivity extends BaseActivity {
                     }
                 }
 //                tvSpeed.setText(builder.toString());
+                tvSpeed.setText("数据长度：" + userBean.getResult().size());
+
                 initList();
 
-                Glide.with(ServerActivity.this)
-                        .load("http://nc16237326.imwork.net:8080/yang/zhou.png")
-                        .asBitmap().into(image);
-                ToastUtil.showToast(ServerActivity.this, "over!");
+                if (!isStop) {
+                    handler.sendEmptyMessageDelayed(0, 1000);
+                }
 
             }
 
             @Override
-            public void onFailure(Throwable throwable) {
+            public void onFailure(final Throwable throwable) {
                 throwable.printStackTrace();
                 LogUtils.d("mtest", "onFailure--" + throwable.toString());
                 tvSpeed.setText(throwable.toString());
 
-                Glide.with(ServerActivity.this)
-                        .load("http://nc16237326.imwork.net:8080/yang/zhou.png")
-                        .asBitmap().into(image);
-                ToastUtil.showToast(ServerActivity.this, "over!");
+                if (!isStop) {
+                    handler.sendEmptyMessageDelayed(0, 1000);
+                }
             }
         });
     }
 
 
     private void initList() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false));
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter = new BaseRecyclerAdapter<UserBean.ResultBean>(this,
+                    userBean.getResult(), R.layout.item_server) {
+                @Override
+                public void convert(BaseRecyclerHolder holder, UserBean.ResultBean item,
+                                    int position, boolean isScrolling) {
+                    holder.setText(R.id.tv_id, item.get_id());
+                    holder.setText(R.id.tv_name, item.getName());
+                    holder.setText(R.id.tv_sex, item.getSex());
+                    holder.setText(R.id.tv_age, item.getAge());
+                    holder.setText(R.id.tv_phone, item.getPhone());
+                    holder.setText(R.id.tv_job, item.getJob());
+                    holder.setText(R.id.tv_address, item.getAddress());
+                    holder.setText(R.id.tv_school, item.getSchool());
+                }
 
-        mRecyclerView.setAdapter(new BaseRecyclerAdapter<UserBean.ResultBean>(this,
-                userBean.getResult(), R.layout.item_server) {
-            @Override
-            public void convert(BaseRecyclerHolder holder, UserBean.ResultBean item,
-                                int position, boolean isScrolling) {
-                holder.setText(R.id.tv_id, item.get_id());
-                holder.setText(R.id.tv_name, item.getName());
-                holder.setText(R.id.tv_sex, item.getSex());
-                holder.setText(R.id.tv_age, item.getAge());
-                holder.setText(R.id.tv_phone, item.getPhone());
-                holder.setText(R.id.tv_job, item.getJob());
-                holder.setText(R.id.tv_address, item.getAddress());
-                holder.setText(R.id.tv_school, item.getSchool());
-            }
+            };
 
-        });
+
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
+                    LinearLayoutManager.VERTICAL, false));
+            mRecyclerView.setAdapter(adapter);
+
+        }
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isStop = true;
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isStop = false;
+
+        getdata("http://nc16237326.imwork.net:5858/cjl/user");
+
+    }
 }

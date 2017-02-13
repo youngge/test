@@ -143,6 +143,9 @@
         <activity
             android:name=".android_serialport_api.ConsoleActivity"
             android:label="wifi通信" />
+        <activity
+            android:name=".activity.DataShowActivity"
+            android:label="数据实时显示" />
     </application>
 
 </manifest>

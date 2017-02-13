@@ -81,6 +81,7 @@ public class ConsoleActivity extends SerialPortActivity {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+
     }
 
     //手动解决方法：打开cmd，进入  adb shell，执行：chmod 777 /dev/ttyS2

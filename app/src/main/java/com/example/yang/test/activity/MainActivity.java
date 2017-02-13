@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private final static String TEXT_CARDWIFI = "wifi操作玩具车";
     private final static String TEXT_SERVER = "读取本地服务器数据";
     private final static String TEXT_BLUETOOTH = "蓝牙读取连接";
+    private final static String TEXT_DATASHOW = "数据实时显示";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +183,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 } else if (mtext.equals(TEXT_BLUETOOTH)) {//蓝牙读取连接
                     intent.setClass(MainActivity.this, BlueToothActivity.class);
                     startActivity(intent);
+                } else if (mtext.equals(TEXT_DATASHOW)) {//数据实时显示
+                    intent.setClass(MainActivity.this, DataShowActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -240,6 +244,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 //        dataList.add(TEXT_CARDWIFI);
         dataList.add(TEXT_SERVER);
         dataList.add(TEXT_BLUETOOTH);
+        dataList.add(TEXT_DATASHOW);
         dataList.add("空");
         dataList.add("空");
     }
@@ -254,6 +259,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                //切换回主线程
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
